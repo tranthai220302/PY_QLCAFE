@@ -1,0 +1,32 @@
+{%load static %}
+{% for Items in data %}
+<div class="col-lg-6">
+    <div class="d-flex align-items-center">
+        <img class="flex-shrink-0 img-fluid rounded" src='{% static Items.Image %}' alt="" style="width: 80px;">
+        <div class="w-100 d-flex flex-column text-start ps-4">
+            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                <span>{{ Items.Name}}</span>
+                <span class="text-primary">${{ Items.Price}}</span>
+            </h5>
+        </div>
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square" style="margin-left: 20px;"><i
+                class="fas fa-plus"></i></a>
+    </div>
+</div>
+{%endfor%}
+{%load static %}
+{% for Items in data1 %}
+<div class="col-lg-6">
+    <div class="d-flex align-items-center">
+        <img class="flex-shrink-0 img-fluid rounded" src='{% static Items.image %}' alt="" style="width: 80px;">
+        <div class="w-100 d-flex flex-column text-start ps-4">
+            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                <span>{{ Items.First_name}}</span>
+                <span class="text-primary">${{ Items.Address}}</span>
+            </h5>
+        </div>
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square" style="margin-left: 20px;"><i
+                class="fas fa-plus"></i></a>
+    </div>
+</div>
+{%endfor%}
