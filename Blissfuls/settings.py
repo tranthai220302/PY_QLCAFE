@@ -1,4 +1,5 @@
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -73,6 +74,8 @@ DATABASES = {
         'HOST': ''
     }
 }
+MEDIA_ROOT = os.path.join(BASE_DIR, 'Manage/static')
+MEDIA_URL = '/Manage/static/'
 APPEND_SLASH = False
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 # Password validation

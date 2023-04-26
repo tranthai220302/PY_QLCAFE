@@ -1,12 +1,12 @@
 {%load static %}
-{% for Items in data %}
+{% for Items in Dish %}
 <div class="col-lg-6">
     <div class="d-flex align-items-center">
-        <img class="flex-shrink-0 img-fluid rounded" src='{% static Items.Image %}' alt="" style="width: 80px;">
+        <img class="flex-shrink-0 img-fluid rounded" src='{% static Items.image %}' alt="" style="width: 80px;">
         <div class="w-100 d-flex flex-column text-start ps-4">
             <h5 class="d-flex justify-content-between border-bottom pb-2">
-                <span>{{ Items.Name}}</span>
-                <span class="text-primary">${{ Items.Price}}</span>
+                <span>{{ Items.name}}</span>
+                <span class="text-primary">${{ Items.price}}</span>
             </h5>
         </div>
         <a href="#" class="btn btn-lg btn-primary btn-lg-square" style="margin-left: 20px;"><i

@@ -256,68 +256,33 @@
                     <div class="tab-content">
                         <div id="tab-1" class="tab-pane fade show p-0 active">
                             <div class="row g-4">
-                                {% for Items in Allproduct %}
-                                {% if Items.type_of_dish_id == 1%}
+                                {% for item in Dish %}
                                 <div class="col-lg-6">
                                     <div class="d-flex align-items-center">
-                                        <img class="flex-shrink-0 img-fluid rounded" src='{% static "img/menu-3.jpg"%}'
+                                        <img class="flex-shrink-0 img-fluid rounded" src='{% static item.image %}'
                                             alt="" style="width: 80px;">
                                         <div class="w-100 d-flex flex-column text-start ps-4">
                                             <h5 class="d-flex justify-content-between border-bottom pb-2">
-                                                <span>{{Items.Name}}</span>
-                                                <span class="text-primary">${{Items.Price}}</span>
+                                                <span>{{ item.id }}</span>
+                                                <span class="text-primary">${{ item.price }}</span>
                                             </h5>
                                         </div>
-                                        <a href="#" class="btn btn-lg btn-primary btn-lg-square"
-                                            style="margin-left: 20px;"><i class="fas fa-plus"></i></a>
+
+                                        <button data-id={{item.id}} data-action="add"
+                                            class="btn btn-lg btn-primary btn-lg-square add-btn update-cart"></button>
+
                                     </div>
                                 </div>
-                                {%endif%}
-                                {%endfor%}
+                                {% endfor %}
+
                             </div>
                         </div>
                         <div id="tab-2" class="tab-pane fade show p-0">
                             <div class="row g-4">
-                                {% for Items in Allproduct %}
-                                {% if Items.type_of_dish_id == 2%}
-                                <div class="col-lg-6">
-                                    <div class="d-flex align-items-center">
-                                        <img class="flex-shrink-0 img-fluid rounded" src='{% static "img/menu-3.jpg"%}'
-                                            alt="" style="width: 80px;">
-                                        <div class="w-100 d-flex flex-column text-start ps-4">
-                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
-                                                <span>{{Items.Name}}</span>
-                                                <span class="text-primary">${{Items.Price}}</span>
-                                            </h5>
-                                        </div>
-                                        <a href="#" class="btn btn-lg btn-primary btn-lg-square"
-                                            style="margin-left: 20px;"><i class="fas fa-plus"></i></a>
-                                    </div>
-                                </div>
-                                {%endif%}
-                                {%endfor%}
                             </div>
                         </div>
                         <div id="tab-3" class="tab-pane fade show p-0">
                             <div class="row g-4">
-                                {% for Items in Allproduct %}
-                                {% if Items.type_of_dish_id == 3%}
-                                <div class="col-lg-6">
-                                    <div class="d-flex align-items-center">
-                                        <img class="flex-shrink-0 img-fluid rounded" src='{% static "img/menu-3.jpg"%}'
-                                            alt="" style="width: 80px;">
-                                        <div class="w-100 d-flex flex-column text-start ps-4">
-                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
-                                                <span>{{Items.Name}}</span>
-                                                <span class="text-primary">${{Items.Price}}</span>
-                                            </h5>
-                                        </div>
-                                        <a href="#" class="btn btn-lg btn-primary btn-lg-square"
-                                            style="margin-left: 20px;"><i class="fas fa-plus"></i></a>
-                                    </div>
-                                </div>
-                                {%endif%}
-                                {%endfor%}
                             </div>
                         </div>
                     </div>
@@ -335,24 +300,6 @@
                     <h1 class="mb-5">Our Professional Staff</h1>
                 </div>
                 <div class="row g-4">
-
-
-                    {% for Items in AllEmployss %}
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="team-item text-center rounded overflow-hidden">
-                            <div class="rounded-circle overflow-hidden m-4">
-                                <img class="img-fluid" src='{% static "img/team-1.jpg"%}' alt="">
-                            </div>
-                            <h5 class="mb-0">{{ Items.First_name }} {{ Items.First_name }}</h5>
-                            <small>{{Items.position}}</small>
-                            <div class="d-flex justify-content-center mt-3">
-                                <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    {%endfor%}
                 </div>
             </div>
         </div>
@@ -476,6 +423,7 @@
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
+
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src='{%static "bootstrap-5.0.2-dist\js\bootstrap.bundle.min.js"%}'></script>
@@ -491,6 +439,26 @@
 
     <!-- Template Javascript -->
     <script src='{%static "js/main.js"%}'></script>
+    <script src='{%static "js/cart.js"%}'></script>
+    <script type="text/JavaScript">
+        var user = '{{request.user}}'
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrftoken = getCookie('csrftoken');
+    </script>
 
 </body>
 

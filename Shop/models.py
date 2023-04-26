@@ -10,6 +10,7 @@ class Customer(models.Model):
     number_phone = models.TextField(max_length=10)
     username = User.username
     password = User.password
+    image = models.FileField(blank=True, null=True, upload_to='images/')
 
     def __str__(self):
         return self.customer.first_name + " " + self.customer.last_name
@@ -21,6 +22,7 @@ class Employee(models.Model):
     number_phone = models.TextField(max_length=10)
     username = User.username
     password = User.password
+    image = models.FileField(blank=True, null=True, upload_to='images/')
     name = str(User.first_name) + " " + str(User.last_name)
 
     def __str__(self):
@@ -30,19 +32,17 @@ class Employee(models.Model):
 class Menu(models.Model):
     # disk = models.ForeignKey(Disk, on_delete=models.CASCADE)
 
-    food = 'Foods'
-    drink = 'Drinks'
-    refreshment = 'Refreshments'
-    sale_off_dish = 'Sale off Dishes'
+    Coffee = 'Coffee'
+    Milk_Tea = 'Milk_Tea'
+    CaKe = 'Cake'
     TYPE = (
-        (food, food),
-        (drink, drink),
-        (refreshment, refreshment),
-        (sale_off_dish, sale_off_dish)
+        (Coffee, Coffee),
+        (Milk_Tea, Milk_Tea),
+        (CaKe, CaKe),
     )
     type = models.CharField(max_length=50, choices=TYPE)
     details = models.CharField(max_length=200)
-    image = models.FileField(blank=True, null=True)
+    image = models.FileField(blank=True, null=True, upload_to='images/')
 
     def __str__(self):
         return self.type
@@ -50,43 +50,19 @@ class Menu(models.Model):
 
 class Dish(models.Model):
     menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
-    disabled = 'Disabled'
-    enabled = 'Enabled'
-
-    STATUS = (
-        (disabled, disabled),
-        (enabled, enabled),
-    )
-
     name = models.CharField(max_length=250)
-    status = models.CharField(max_length=50, choices=STATUS)
     price = models.FloatField()
-    image = models.FileField(blank=True, null=True)
+    image = models.FileField(blank=True, null=True,
+                             upload_to='media/')
 
     def __str__(self):
         return self.name
 
 
 class Cart(models.Model):
-    pending = 'Pending'
-    completed = 'Completed'
-    STATUS = (
-        (pending, pending),
-        (completed, completed),
-    )
-    pickup = 'PickUp'
-    delivery = 'Delivery'
-
-    TYPE = (
-        (pickup, pickup),
-        (delivery, delivery),
-    )
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     total = models.IntegerField(default=0)
     date = models.DateTimeField()
-    status = models.CharField(max_length=100, choices=STATUS)
-    type = models.CharField(max_length=100, choices=TYPE)
 
     def __str__(self):
         return self.customer.__str__() + " " + self.date.__str__()
@@ -95,5 +71,5 @@ class Cart(models.Model):
 class Order(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     dish = models.ForeignKey(Dish, on_delete=models.CASCADE)
-    amount = models.IntegerField()
+    amount = models.IntegerField(default=0)
     details = models.CharField(max_length=100, default="")
