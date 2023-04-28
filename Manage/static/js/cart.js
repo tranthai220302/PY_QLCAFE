@@ -8,7 +8,7 @@ addBtns.forEach(function (btn) {
         console.log('Dish ID: ' + id + ', Action: ' + action);
         console.log("user", user)
         if (user === "AnonymousUser") {
-            console.log("1")
+            window.location.href = "formlogin"
         }
         else {
             console.log("1")

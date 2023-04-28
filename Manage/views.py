@@ -55,7 +55,8 @@ def updatecart(request):
     action = data['action']
     user = request.user
     customer = Customer.objects.get(customer_id=user.id)
-    cart, created = Cart.objects.get_or_create(customer_id=customer.id)
+    cart, created = Cart.objects.get_or_create(
+        customer_id=customer.id, status='ordering')
     order, created = Order.objects.get_or_create(
         cart_id=cart.id, dish_id=id)
     if action == 'add':
@@ -70,6 +71,8 @@ def updatecart(request):
     total = 0
     for oder in orders:
         total += oder.dish.price * oder.amount
+    cart.total = total
+    cart.save()
     data = {'cart': total, 'amount': order.amount}
     json_data = json.dumps(data)
     return JsonResponse(json_data, safe=False)
@@ -83,12 +86,31 @@ def cart(request):
     zero_objects = Order.objects.filter(amount=0)
 
     zero_objects.delete()
-    cart, created = Cart.objects.get_or_create(customer_id=customer.id)
+    cart, created = Cart.objects.get_or_create(
+        customer_id=customer.id, status='ordering')
     order = Order.objects.filter(cart_id=cart.id)
     total = 0
     for oder in order:
         total += oder.dish.price * oder.amount
+    cart.total = total
+    cart.save()
     return render(request, 'cart.html', {'orders': order, 'total': total})
+
+
+def pay(request):
+    user = request.user
+    customer = Customer.objects.get(customer_id=user.id)
+    zero_objects = Order.objects.filter(amount=0)
+
+    zero_objects.delete()
+    cart, created = Cart.objects.get_or_create(
+        customer_id=customer.id, status='ordering')
+    if cart.total > 0:
+        print(1)
+        cart.status = 'delivery'
+        cart.save()
+        return render(request, 'cart.html')
+    return render(request, 'cart.html')
 
 
 def contact(request):

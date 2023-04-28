@@ -62,7 +62,16 @@ class Dish(models.Model):
 class Cart(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     total = models.IntegerField(default=0)
-    date = models.DateTimeField()
+    date = models.DateTimeField(auto_now_add=True)
+    ordering = 'ordering'
+    delivery = 'delivery'
+    received = 'received'
+    Status = (
+        (ordering, ordering),
+        (delivery, delivery),
+        (received, received)
+    )
+    status = models.CharField(max_length=50, choices=Status, default=ordering)
 
     def __str__(self):
         return self.customer.__str__() + " " + self.date.__str__()
