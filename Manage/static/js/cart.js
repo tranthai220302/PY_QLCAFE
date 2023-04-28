@@ -8,9 +8,10 @@ addBtns.forEach(function (btn) {
         console.log('Dish ID: ' + id + ', Action: ' + action);
         console.log("user", user)
         if (user === "AnonymousUser") {
-            console.log("user   no  login")
+            console.log("1")
         }
         else {
+            console.log("1")
             updatecart(id, action)
         }
     });
@@ -21,10 +22,18 @@ function updatecart(id, action) {
     fetch(url, {
         method: 'POST',
         headers: {
-            'Content-Type': 'aplication/json',
+            'Content-Type': 'application/json',
             'X-CSRFToken': csrftoken
-
         },
-        body: JSON.stringify({'id':id,'action':action})
+        body: JSON.stringify({ 'id': id, 'action': action })
     })
+        .then(response => response.json())
+        .then(data => {
+            var data = JSON.parse(data);
+            var cartInfo = document.getElementById("cart-info");
+            cartInfo.innerHTML = "$" + data.cart;
+            console.log(data);
+            var cartInfo = document.getElementById("dish_amount" + id);
+            cartInfo.innerHTML = data.amount;
+        });
 }

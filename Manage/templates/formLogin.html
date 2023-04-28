@@ -1,0 +1,31 @@
+<div class="modal js-modal">
+    {% load static %}
+    <div class="modal-container js-modal-container">
+        <div class="modal-close js-modal-close">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+
+        <header class="modal-header">
+            <img src="{% static 'img/logo.png'%}" alt="logo">
+            <p>Blissful xin chào!</p>
+        </header>
+        <form action="{% url 'my_login'%}" method="post">
+            {% csrf_token %}
+            <div class="modal-body">
+                <input name="user" id="modal-quatity" type="text" class="modal-input" placeholder="Tài khoản">
+                <input name="pass" id="modal-email" type="password" class="modal-input" placeholder="Mật khẩu">
+                <div class="modal-forget">
+                    <a href="">Quên mật khẩu?</a>
+                </div>
+                <button type="submit" class="modal-pay-btn">
+                    Đăng nhập
+                    <i class="ti-check"></i>
+                </button>
+            </div>
+
+            <footer class="modal-footer">
+                Bạn chưa có tài khoản? <a href="">Đăng ký</a>
+            </footer>
+        </form>
+    </div>
+</div>

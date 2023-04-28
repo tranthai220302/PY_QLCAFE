@@ -12,4 +12,7 @@ urlpatterns = [
     path('team', views.team, name="team"),
     path('testimonial', views.testimonial, name="testimonial"),
     path('updatecart', views.updatecart, name="updatecart"),
+    path('my_login', views.my_login, name="my_login"),
+    path('formlogin', views.formlogin, name="formlogin"),
+    path('my_logout', views.my_logout, name="my_logout"),
 ]

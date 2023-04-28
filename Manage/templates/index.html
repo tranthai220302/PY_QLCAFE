@@ -35,6 +35,10 @@
     <!-- Template Stylesheet -->
     <link href='{% static "css/style.css"%}' rel="stylesheet">
 
+
+
+
+
 </head>
 
 <body>
@@ -75,7 +79,8 @@
                         <a href="{% url 'cart' %}" class="nav-item nav-link">Cart<i class="fas fa-cart-plus"
                                 style="padding-left: 4px;"></i></a>
                     </div>
-                    <a href="" class="btn btn-primary py-2 px-4">Login</a>
+                    <a href="{% url 'formlogin' %}" id="login-btn" class="btn btn-primary py-2 px-4">Login</a>
+                    <a href="{% url 'my_logout' %}" id="logout-btn" class="btn btn-primary py-2 px-4">Logout</a>
                 </div>
             </nav>
 
@@ -257,13 +262,14 @@
                         <div id="tab-1" class="tab-pane fade show p-0 active">
                             <div class="row g-4">
                                 {% for item in Dish %}
+                                {% if item.menu_id == 1 %}
                                 <div class="col-lg-6">
                                     <div class="d-flex align-items-center">
                                         <img class="flex-shrink-0 img-fluid rounded" src='{% static item.image %}'
                                             alt="" style="width: 80px;">
                                         <div class="w-100 d-flex flex-column text-start ps-4">
                                             <h5 class="d-flex justify-content-between border-bottom pb-2">
-                                                <span>{{ item.id }}</span>
+                                                <span>{{ item.name }}</span>
                                                 <span class="text-primary">${{ item.price }}</span>
                                             </h5>
                                         </div>
@@ -273,16 +279,57 @@
 
                                     </div>
                                 </div>
+                                {%endif%}
                                 {% endfor %}
 
                             </div>
                         </div>
                         <div id="tab-2" class="tab-pane fade show p-0">
                             <div class="row g-4">
+                                {% for item in Dish %}
+                                {% if item.menu_id == 2 %}
+                                <div class="col-lg-6">
+                                    <div class="d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid rounded" src='{% static item.image %}'
+                                            alt="" style="width: 80px;">
+                                        <div class="w-100 d-flex flex-column text-start ps-4">
+                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                                <span>{{ item.name }}</span>
+                                                <span class="text-primary">${{ item.price }}</span>
+                                            </h5>
+                                        </div>
+
+                                        <button data-id={{item.id}} data-action="add"
+                                            class="btn btn-lg btn-primary btn-lg-square add-btn update-cart"></button>
+
+                                    </div>
+                                </div>
+                                {%endif%}
+                                {% endfor %}
                             </div>
                         </div>
                         <div id="tab-3" class="tab-pane fade show p-0">
                             <div class="row g-4">
+                                {% for item in Dish %}
+                                {% if item.menu_id == 3 %}
+                                <div class="col-lg-6">
+                                    <div class="d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid rounded" src='{% static item.image %}'
+                                            alt="" style="width: 80px;">
+                                        <div class="w-100 d-flex flex-column text-start ps-4">
+                                            <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                                <span>{{ item.name }}</span>
+                                                <span class="text-primary">${{ item.price }}</span>
+                                            </h5>
+                                        </div>
+
+                                        <button data-id={{item.id}} data-action="add"
+                                            class="btn btn-lg btn-primary btn-lg-square add-btn update-cart"></button>
+
+                                    </div>
+                                </div>
+                                {%endif%}
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -459,6 +506,8 @@
         }
         const csrftoken = getCookie('csrftoken');
     </script>
+    <script src='{%static "js/auth.js"%}'></script>
+
 
 </body>
 
