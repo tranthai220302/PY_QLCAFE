@@ -1,31 +1,334 @@
-<div class="modal js-modal">
-    {% load static %}
-    <div class="modal-container js-modal-container">
-        <div class="modal-close js-modal-close">
-            <i class="fa-solid fa-xmark"></i>
-        </div>
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
 
-        <header class="modal-header">
-            <img src="{% static 'img/logo.png'%}" alt="logo">
-            <p>Blissful xin chào!</p>
-        </header>
-        <form action="{% url 'my_login'%}" method="post">
-            {% csrf_token %}
-            <div class="modal-body">
-                <input name="user" id="modal-quatity" type="text" class="modal-input" placeholder="Tài khoản">
-                <input name="pass" id="modal-email" type="password" class="modal-input" placeholder="Mật khẩu">
-                <div class="modal-forget">
-                    <a href="">Quên mật khẩu?</a>
-                </div>
-                <button type="submit" class="modal-pay-btn">
-                    Đăng nhập
-                    <i class="ti-check"></i>
-                </button>
-            </div>
+<head>
+	<link rel="icon" href='{% static "img/logoIcon.png"%}'>
+	<title>Blissful</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--===============================================================================================-->
+	<!--===============================================================================================-->
+	<link rel="stylesheet" href=' {% static "vendor/bootstrap/css/bootstrap.min.css"  %}'>
+	<!--===============================================================================================-->
+	<link rel="stylesheet" href='{% static "fonts/font-awesome-4.7.0/css/font-awesome.min.css"  %}'>
+	<!--===============================================================================================-->
+	<link rel="stylesheet" href=' {% static "fonts/Linearicons-Free-v1.0.0/icon-font.min.css"  %}'>
+	<!--===============================================================================================-->
+	<link rel="stylesheet" href='{% static "vendor/animate/animate.css" %}'>
+	<!--===============================================================================================-->
+	<link rel="stylesheet" href=' {% static "vendor/css-hamburgers/hamburgers.min.css"  %}'>
+	<!--===============================================================================================-->
+	<link rel="stylesheet" href='{% static "vendor/animsition/css/animsition.min.css"  %}'>
+	<!--===============================================================================================-->
+	<link rel="stylesheet" href=' {% static "vendor/select2/select2.min.css"  %}'>
+	<!--===============================================================================================-->
+	<link rel="stylesheet" href='{% static "vendor/daterangepicker/daterangepicker.css" %}'>
+	<!--===============================================================================================-->
+	<link rel="stylesheet" href='{% static "css/util.css" %}'>
+	<link rel="stylesheet" href='{% static "css/main.css" %}'>
+	<!--===============================================================================================-->
 
-            <footer class="modal-footer">
-                Bạn chưa có tài khoản? <a href="">Đăng ký</a>
-            </footer>
-        </form>
-    </div>
-</div>
+</head>
+
+<body style="background-color: #666666;">
+
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				{%if form != "form1"%}
+				<form action="{% url 'my_login' %}" method="post" class="login100-form validate-form" id="form1">
+					{% csrf_token %}
+					<span class="login100-form-title p-b-43">
+						Login to continue
+					</span>
+
+
+					<div class="wrap-input100 validate-input" style="height: 70px;"
+						data-validate="Username is required">
+						<input class=" input100" type="text" name="username" id="username">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Username</span>
+					</div>
+
+
+					<div class="wrap-input100 validate-input" style="height: 70px;"
+						data-validate="Password is required">
+						<input class="input100" type="password" name="password" id="password">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Password</span>
+					</div>
+
+					<div class="flex-sb-m w-full p-t-3 p-b-32">
+						<div class="contact100-form-checkbox">
+							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+							<label class="label-checkbox100" for="ckb1">
+								Remember me
+							</label>
+						</div>
+
+						<div>
+							<a href=' {% static "#"%} ' class="txt1">
+								Forgot Password?
+							</a>
+						</div>
+					</div>
+
+
+					<div class="container-login100-form-btn">
+						<button type="submit" class="login100-form-btn">
+							Login
+						</button>
+					</div>
+
+					<div class="text-center p-t-46 p-b-20">
+						<span class="txt2">
+							<button type="button" onclick="switchForm()">or sign up using
+						</span>
+					</div>
+
+					<div class="login100-form-social flex-c-m">
+						<a href='{% static "#" %}' class="login100-form-social-item flex-c-m bg1 m-r-5">
+							<i class="fa fa-facebook-f" aria-hidden="true"></i>
+						</a>
+
+						<a href=' {% static "#"%}' class="login100-form-social-item flex-c-m bg2 m-r-5">
+							<i class="fa fa-twitter" aria-hidden="true"></i>
+						</a>
+					</div>
+				</form>
+				<form action="{% url 'signup' %}" method="post" class="login100-form validate-form" id="form2"
+					style="display:none; padding: 10px;">
+					{% csrf_token %}
+					<span class="login100-form-title p-b-43" style="padding: 30px;">
+						Sign Up
+					</span>
+					<div style="display:flex;">
+						<div class="wrap-input100 validate-input" style="height: 70px;"
+							data-validate="First Name is required" style="margin-right: 5px;">
+							<input class="input100" type="text" name="firstname">
+							<span class="focus-input100"></span>
+							<span class="label-input100">First Name</span>
+						</div>
+						<div class="wrap-input100 validate-input" style="height: 70px;"
+							data-validate="Last Name is required">
+							<input class="input100" type="text" name="lastname">
+							<span class="focus-input100"></span>
+							<span class="label-input100">Last Name</span>
+						</div>
+					</div>
+
+					<div class="wrap-input100 validate-input" style="height: 70px;"
+						data-validate="Username is required">
+						<input class=" input100" type="text" name="username">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Username</span>
+					</div>
+					<div class="wrap-input100 validate-input" style="height: 70px;" data-validate="Gmail is required">
+						<input class="input100" type="text" name="email">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Email</span>
+					</div>
+
+					<div class="wrap-input100 validate-input" style="height: 70px;"
+						data-validate="Password is required">
+						<input class="input100" type="password" name="password">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Password</span>
+					</div>
+					<div class="wrap-input100 validate-input" style="height: 70px;" data-validate="Address is required">
+						<input class="input100" type="text" name="Address">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Address</span>
+					</div>
+					<div class="wrap-input100 validate-input" style="height: 70px;"
+						data-validate="Phone Number is required">
+						<input class="input100" type="text" name="phone">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Phone Number</span>
+					</div>
+
+
+
+					<div class="container-login100-form-btn">
+						<button type="submit" class="login100-form-btn">
+							Sign Up
+						</button>
+					</div>
+
+					<div class="text-center p-t-46 p-b-20" style="padding-top: 20px;">
+						<span class="txt2">
+							<button type="button" onclick="switchForm()">or Login
+						</span>
+					</div>
+				</form>
+				{%endif%}
+				{%if form == "form1"%}
+				<form action="{% url 'my_login' %}" method="post" class="login100-form validate-form" id="form1"
+					style=" display:none;">
+					{% csrf_token %}
+					<span class="login100-form-title p-b-43">
+						Login to continue
+					</span>
+
+
+					<div class="wrap-input100 validate-input" data-validate="Username is required">
+						<input class=" input100" type="text" name="username" id="username">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Username</span>
+					</div>
+
+
+					<div class="wrap-input100 validate-input" data-validate="Password is required">
+						<input class="input100" type="password" name="password" id="password">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Password</span>
+					</div>
+
+					<div class="flex-sb-m w-full p-t-3 p-b-32">
+						<div class="contact100-form-checkbox">
+							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+							<label class="label-checkbox100" for="ckb1">
+								Remember me
+							</label>
+						</div>
+
+						<div>
+							<a href=' {% static "#"%} ' class="txt1">
+								Forgot Password?
+							</a>
+						</div>
+					</div>
+
+
+					<div class="container-login100-form-btn">
+						<button type="submit" class="login100-form-btn">
+							Login
+						</button>
+					</div>
+
+					<div class="text-center p-t-46 p-b-20">
+						<span class="txt2">
+							<button type="button" onclick="switchForm()">or sign up using
+						</span>
+					</div>
+
+					<div class="login100-form-social flex-c-m">
+						<a href='{% static "#" %}' class="login100-form-social-item flex-c-m bg1 m-r-5">
+							<i class="fa fa-facebook-f" aria-hidden="true"></i>
+						</a>
+
+						<a href=' {% static "#"%}' class="login100-form-social-item flex-c-m bg2 m-r-5">
+							<i class="fa fa-twitter" aria-hidden="true"></i>
+						</a>
+					</div>
+				</form>
+				<form action="{% url 'signup' %}" method="post" class="login100-form validate-form" id="form2"
+					style="padding: 30px;">
+					{% csrf_token %}
+					<span class="login100-form-title p-b-43">
+						Sign Up
+					</span>
+					<div style="display:flex;">
+						<div class="wrap-input100 validate-input" data-validate="First Name is required"
+							style="margin-right: 10px;">
+							<input class="input100" type="text" name="firstname">
+							<span class="focus-input100"></span>
+							<span class="label-input100">First Name</span>
+						</div>
+						<div class="wrap-input100 validate-input" data-validate="Last Name is required">
+							<input class="input100" type="text" name="lastname">
+							<span class="focus-input100"></span>
+							<span class="label-input100">Last Name</span>
+						</div>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Username is required">
+						<input class=" input100" type="text" name="username">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Username</span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Gmail is required">
+						<input class="input100" type="text" name="gmail">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Gmail</span>
+					</div>
+					<div class="wrap-input100 validate-input" data-validate="Password is required">
+						<input class="input100" type="password" name="password">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Password</span>
+					</div>
+					<div class="wrap-input100 validate-input" data-validate="Address is required">
+						<input class="input100" type="text" name="Address">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Address</span>
+					</div>
+					<div class="wrap-input100 validate-input" data-validate="Phone Number is required">
+						<input class="input100" type="text" name="phone">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Phone Number</span>
+					</div>
+
+
+
+					<div class="container-login100-form-btn">
+						<button type="submit" class="login100-form-btn">
+							Sign Up
+						</button>
+					</div>
+
+					<div class="text-center p-t-46 p-b-20" style="padding-top: 20;">
+						<span class="txt2">
+							<button type="button" onclick="switchForm()">or Login
+						</span>
+					</div>
+				</form>
+				{%endif%}
+				<div class="login100-more" style="background-image: url(static/img/about-1.jpg);">
+				</div>
+			</div>
+		</div>
+	</div>
+	{% if form == "form1" %}
+	<script>
+		alert("Người dùng đã tồn tại!");
+	</script>
+	{% endif %}
+	<script>
+		function switchForm() {
+			var form1 = document.getElementById("form1");
+			var form2 = document.getElementById("form2");
+
+			if (form1.style.display === "none") {
+				form1.style.display = "block";
+				form2.style.display = "none";
+			} else {
+				form1.style.display = "none";
+				form2.style.display = "block";
+			}
+		}
+	</script>
+
+
+
+	<!--===============================================================================================-->
+	<script src='{% static "vendor/jquery/jquery-3.2.1.min.js"%}'></script>
+	<!--===============================================================================================-->
+	<script src='{% static "vendor/animsition/js/animsition.min.js"%}'></script>
+	<!--===============================================================================================-->
+	<script src='{% static "vendor/bootstrap/js/popper.js"%}'></script>
+	<script src='{% static "vendor/bootstrap/js/bootstrap.min.js"%}'></script>
+	<!--===============================================================================================-->
+	<script src='{% static "vendor/select2/select2.min.js"%}'></script>
+	<!--===============================================================================================-->
+	<script src='{% static "vendor/daterangepicker/moment.min.js"%}'></script>
+	<script src='{% static "vendor/daterangepicker/daterangepicker.js"%}'></script>
+	<!--===============================================================================================-->
+	<script src='{% static "vendor/countdowntime/countdowntime.js"%}'></script>
+	<!--===============================================================================================-->
+	<script src='{% static "js/login.js"%}'></script>
+
+</body>
+
+</html>

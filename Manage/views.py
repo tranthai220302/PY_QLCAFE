@@ -1,10 +1,11 @@
 from datetime import date
+from pyexpat.errors import messages
 from django.contrib.auth import authenticate, login, logout, decorators
 import json
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view
-from Shop.models import Order, Dish, Cart, Customer
+from Shop.models import Order, Dish, Cart, Customer, User
 
 # Create your views here.
 
@@ -29,8 +30,8 @@ def my_login(request):
     if request.method == "POST":
         queryset = Dish.objects.filter()
         if not request.user.is_authenticated:
-            user_name = request.POST.get('user')
-            pass_word = request.POST.get('pass')
+            user_name = request.POST.get('username')
+            pass_word = request.POST.get('password')
             my_user = authenticate(
                 request, username=user_name, password=pass_word)
             print(user_name)
@@ -43,10 +44,35 @@ def my_login(request):
         return render(request, 'index.html', {'Dish': queryset})
 
 
+@decorators.login_required(login_url='/formlogin')
 def my_logout(request):
     logout(request)
     queryset = Dish.objects.filter()
     return render(request, 'index.html', {'Dish': queryset})
+
+
+def signup(request):
+    if request.method == 'POST':
+        firstname = request.POST.get('firstname')
+        lastname = request.POST.get('lastname')
+        _username = request.POST.get('username')
+        password = request.POST.get('password')
+        email = request.POST.get('email')
+        _address = request.POST.get('Address')
+        phone = request.POST.get('phone')
+        my_user = User.objects.filter(username=_username)
+        if my_user.exists():
+            return render(request, 'formlogin.html', {"form": "form1"})
+        User.objects.create_superuser(
+            username=_username, email=email, password=password, first_name=firstname, last_name=lastname)
+        user = authenticate(request, username=_username, password=password)
+        login(request, user)
+        Customer.objects.create(
+            customer=user, address=_address, number_phone=phone)
+        queryset = Dish.objects.filter()
+        return render(request, 'index.html', {"Dish": queryset})
+    else:
+        return render(request, 'menu.html')
 
 
 def updatecart(request):
@@ -82,7 +108,7 @@ def updatecart(request):
 def cart(request):
 
     user = request.user
-    customer = Customer.objects.get(customer_id=user.id)
+    customer, created = Customer.objects.get_or_create(customer_id=user.id)
     zero_objects = Order.objects.filter(amount=0)
 
     zero_objects.delete()
@@ -97,9 +123,10 @@ def cart(request):
     return render(request, 'cart.html', {'orders': order, 'total': total})
 
 
+@decorators.login_required(login_url='/formlogin')
 def pay(request):
     user = request.user
-    customer = Customer.objects.get(customer_id=user.id)
+    customer, created = Customer.objects.get_or_create(customer_id=user.id)
     zero_objects = Order.objects.filter(amount=0)
 
     zero_objects.delete()
@@ -118,7 +145,8 @@ def contact(request):
 
 
 def menu(request):
-    return render(request, 'menu.html')
+    queryset = Dish.objects.filter()
+    return render(request, 'menu.html', {'Dish': queryset})
 
 
 def service(request):

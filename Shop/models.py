@@ -51,7 +51,7 @@ class Menu(models.Model):
 class Dish(models.Model):
     menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
     name = models.CharField(max_length=250)
-    price = models.FloatField()
+    price = models.IntegerField()
     image = models.FileField(blank=True, null=True,
                              upload_to='media/')
 

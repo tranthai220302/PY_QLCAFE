@@ -61,10 +61,10 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0 pe-4">
-                        <a href="{% url 'Home_page' %}" class="nav-item nav-link active">Home</a>
+                        <a href="{% url 'Home_page' %}" class="nav-item nav-link">Home</a>
                         <a href="{% url 'service' %}" class="nav-item nav-link">Service</a>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                            <a href="#" class="nav-link dropdown-toggle  active" data-bs-toggle="dropdown">Pages</a>
                             <div class="dropdown-menu m-0">
                                 <a href="{% url 'about' %}" class="dropdown-item">About Us</a>
                                 <a href="{% url 'team' %}" class="dropdown-item">Our Team</a>
@@ -81,24 +81,17 @@
                 </div>
             </nav>
 
+
             <div class="container-xxl py-5 bg-dark hero-header mb-5">
-                <div class="container my-5 py-5">
-                    <div class="row align-items-center g-5">
-                        <div class="col-lg-6 text-center text-lg-start">
-                            <h1 class="display-3 text-white animated slideInLeft">Relax with<br>Blissful</h1>
-                            <p class="text-white animated slideInLeft mb-4 pb-2">After 50 years of experience growing
-                                and developing the highest quality of tea leaves and coffee beans coupled with our
-                                devotion to providing memorable customer experience, Blissful has earned the reputation
-                                as a pioneer brand having many creative ideas for the coffee and milktea industry. We
-                                constantly strive to create the highest quality of tea and coffee products through
-                                ceaseless effort and passion. We are truly connected to and contribute deeply to the
-                                Vietnam' s longstanding culture of drinking coffee and tea.</p>
-                            <a href="" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Read More</a>
-                        </div>
-                        <div class="col-lg-6 text-center text-lg-end overflow-hidden">
-                            <img class="img-fluid" src='{% static "img/hero.png"%}' alt="">
-                        </div>
-                    </div>
+                <div class="container text-center my-5 pt-5 pb-4">
+                    <h1 class="display-3 text-white mb-3 animated slideInDown">Testimonial</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center text-uppercase">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">Testimonial</li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
         </div>

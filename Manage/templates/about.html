@@ -59,10 +59,10 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0 pe-4">
-                        <a href="{% url 'Home_page' %}" class="nav-item nav-link active">Home</a>
+                        <a href="{% url 'Home_page' %}" class="nav-item nav-link">Home</a>
                         <a href="{% url 'service' %}" class="nav-item nav-link">Service</a>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                            <a href="#" class="nav-link dropdown-toggle  active" data-bs-toggle="dropdown">Pages</a>
                             <div class="dropdown-menu m-0">
                                 <a href="{% url 'about' %}" class="dropdown-item">About Us</a>
                                 <a href="{% url 'team' %}" class="dropdown-item">Our Team</a>
@@ -80,142 +80,135 @@
             </nav>
 
             <div class="container-xxl py-5 bg-dark hero-header mb-5">
-                <div class="container my-5 py-5">
-                    <div class="row align-items-center g-5">
-                        <div class="col-lg-6 text-center text-lg-start">
-                            <h1 class="display-3 text-white animated slideInLeft">Relax with<br>Blissful</h1>
-                            <p class="text-white animated slideInLeft mb-4 pb-2">After 50 years of experience growing
-                                and developing the highest quality of tea leaves and coffee beans coupled with our
-                                devotion to providing memorable customer experience, Blissful has earned the reputation
-                                as a pioneer brand having many creative ideas for the coffee and milktea industry. We
-                                constantly strive to create the highest quality of tea and coffee products through
-                                ceaseless effort and passion. We are truly connected to and contribute deeply to the
-                                Vietnam' s longstanding culture of drinking coffee and tea.</p>
-                            <a href="" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Read More</a>
-                        </div>
-                        <div class="col-lg-6 text-center text-lg-end overflow-hidden">
-                            <img class="img-fluid" src='{% static "img/hero.png"%}' alt="">
-                        </div>
-                    </div>
+                <div class="container text-center my-5 pt-5 pb-4">
+                    <h1 class="display-3 text-white mb-3 animated slideInDown">About Us</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center text-uppercase">
+                            <li class="breadcrumb-item"><a href="{% url 'Home_page' %}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">About</li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
         </div>
-        <!-- Navbar & Hero End -->
+    </div>
+    <!-- Navbar & Hero End -->
 
-        <!-- About Start -->
-        <div class="container-xxl py-5">
-            <div class="container">
-                <div class="row g-5 align-items-center">
-                    <div class="col-lg-6">
-                        <div class="row g-3">
-                            <div class="col-6 text-start">
-                                <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.1s"
-                                    src='{% static "img/about-1.jpg"%}'>
-                            </div>
-                            <div class="col-6 text-start">
-                                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.3s"
-                                    src='{% static "img/about-2.jpg"%}' style="margin-top: 25%;">
-                            </div>
-                            <div class="col-6 text-end">
-                                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.5s"
-                                    src='{% static "img/about-3.jpg"%}'>
-                            </div>
-                            <div class="col-6 text-end">
-                                <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.7s"
-                                    src=' {% static "img/about-4.jpg" %}'>
-                            </div>
+    <!-- About Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6">
+                    <div class="row g-3">
+                        <div class="col-6 text-start">
+                            <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.1s"
+                                src='{% static "img/about-1.jpg"%}'>
+                        </div>
+                        <div class="col-6 text-start">
+                            <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.3s"
+                                src='{% static "img/about-2.jpg"%}' style="margin-top: 25%;">
+                        </div>
+                        <div class="col-6 text-end">
+                            <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.5s"
+                                src='{% static "img/about-3.jpg"%}'>
+                        </div>
+                        <div class="col-6 text-end">
+                            <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.7s"
+                                src=' {% static "img/about-4.jpg" %}'>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <h5 class="section-title ff-secondary text-start text-primary fw-normal">About Us</h5>
-                        <h1 class="mb-4">Welcome to Blissful</h1>
-                        <p class="mb-4">After 50 years of experience growing and developing the highest quality of tea
-                            leaves and coffee beans coupled with our devotion to providing memorable customer
-                            experience, Blissful has earned the reputation as a pioneer brand having many creative ideas
-                            for the coffee and milktea industry.</p>
-                        <p class="mb-4">We constantly strive to create the highest quality of tea and coffee products
-                            through ceaseless effort and passion. We are truly connected to and contribute deeply to the
-                            Vietnam's longstanding culture of drinking coffee and tea.</p>
-                        <div class="row g-4 mb-4">
-                            <div class="col-sm-6">
-                                <div class="d-flex align-items-center border-start border-5 border-primary px-3">
-                                    <h1 class="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">50
-                                    </h1>
-                                    <div class="ps-4">
-                                        <p class="mb-0">Years of</p>
-                                        <h6 class="text-uppercase mb-0">Experience</h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="d-flex align-items-center border-start border-5 border-primary px-3">
-                                    <h1 class="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">20
-                                    </h1>
-                                    <div class="ps-4">
-                                        <p class="mb-0">Popular</p>
-                                        <h6 class="text-uppercase mb-0">Quality Drinks</h6>
-                                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h5 class="section-title ff-secondary text-start text-primary fw-normal">About Us</h5>
+                    <h1 class="mb-4">Welcome to Blissful</h1>
+                    <p class="mb-4">After 50 years of experience growing and developing the highest quality of tea
+                        leaves and coffee beans coupled with our devotion to providing memorable customer
+                        experience, Blissful has earned the reputation as a pioneer brand having many creative ideas
+                        for the coffee and milktea industry.</p>
+                    <p class="mb-4">We constantly strive to create the highest quality of tea and coffee products
+                        through ceaseless effort and passion. We are truly connected to and contribute deeply to the
+                        Vietnam's longstanding culture of drinking coffee and tea.</p>
+                    <div class="row g-4 mb-4">
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center border-start border-5 border-primary px-3">
+                                <h1 class="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">50
+                                </h1>
+                                <div class="ps-4">
+                                    <p class="mb-0">Years of</p>
+                                    <h6 class="text-uppercase mb-0">Experience</h6>
                                 </div>
                             </div>
                         </div>
-                        <a class="btn btn-primary py-3 px-5 mt-2" href="">Read More</a>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center border-start border-5 border-primary px-3">
+                                <h1 class="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">20
+                                </h1>
+                                <div class="ps-4">
+                                    <p class="mb-0">Popular</p>
+                                    <h6 class="text-uppercase mb-0">Quality Drinks</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="btn btn-primary py-3 px-5 mt-2" href="">Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Company</h4>
+                    <a class="btn btn-link" href="">About Us</a>
+                    <a class="btn btn-link" href="">Contact Us</a>
+                    <a class="btn btn-link" href="">Reservation</a>
+                    <a class="btn btn-link" href="">Privacy Policy</a>
+                    <a class="btn btn-link" href="">Terms & Condition</a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Contact</h4>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Nguyen Luong Bang, Lien Chieu, Da
+                        Nang</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
+                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
+                    <div class="d-flex pt-2">
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Opening</h4>
+                    <h5 class="text-light fw-normal">Monday - Saturday</h5>
+                    <p>09:00AM - 09:00PM</p>
+                    <h5 class="text-light fw-normal">Sunday</h5>
+                    <p>10:00AM - 08:00PM</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Newsletter</h4>
+                    <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+                    <div class="position-relative mx-auto" style="max-width: 400px;">
+                        <input class="form-control border-primary w-100 py-3 ps-4 pe-5" type="text"
+                            placeholder="Your email">
+                        <button type="button"
+                            class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- About End -->
+    </div>
+    <!-- Footer End -->
 
 
-        <!-- Footer Start -->
-        <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
-            <div class="container py-5">
-                <div class="row g-5">
-                    <div class="col-lg-3 col-md-6">
-                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Company</h4>
-                        <a class="btn btn-link" href="">About Us</a>
-                        <a class="btn btn-link" href="">Contact Us</a>
-                        <a class="btn btn-link" href="">Reservation</a>
-                        <a class="btn btn-link" href="">Privacy Policy</a>
-                        <a class="btn btn-link" href="">Terms & Condition</a>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Contact</h4>
-                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Nguyen Luong Bang, Lien Chieu, Da
-                            Nang</p>
-                        <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                        <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
-                        <div class="d-flex pt-2">
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Opening</h4>
-                        <h5 class="text-light fw-normal">Monday - Saturday</h5>
-                        <p>09:00AM - 09:00PM</p>
-                        <h5 class="text-light fw-normal">Sunday</h5>
-                        <p>10:00AM - 08:00PM</p>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Newsletter</h4>
-                        <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
-                        <div class="position-relative mx-auto" style="max-width: 400px;">
-                            <input class="form-control border-primary w-100 py-3 ps-4 pe-5" type="text"
-                                placeholder="Your email">
-                            <button type="button"
-                                class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Footer End -->
-
-
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
     <!-- JavaScript Libraries -->
