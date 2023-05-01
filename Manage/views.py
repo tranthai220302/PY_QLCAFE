@@ -22,6 +22,11 @@ def Home_page(request):
             return render(request, 'formLogin.html')
 
 
+@decorators.login_required(login_url='/formlogin')
+def myaccount(request):
+    return render(request, 'myaccount.html')
+
+
 def formlogin(request):
     return render(request, 'formLogin.html')
 
@@ -29,7 +34,8 @@ def formlogin(request):
 def my_login(request):
     if request.method == "POST":
         queryset = Dish.objects.filter()
-        if not request.user.is_authenticated:
+        user = request.user
+        if not user.is_authenticated:
             user_name = request.POST.get('username')
             pass_word = request.POST.get('password')
             my_user = authenticate(
@@ -37,10 +43,13 @@ def my_login(request):
             print(user_name)
             print(pass_word)
             if my_user is None:
-                print("dfdfd")
                 return render(request, 'formLogin.html')
             login(request, my_user)
-            return render(request, 'index.html', {'Dish': queryset})
+            print(user.is_staff)
+            if user.is_staff == True:
+                return render(request, 'index.html', {'Dish': queryset})
+            else:
+                return render(request, 'formLogin.html')
         return render(request, 'index.html', {'Dish': queryset})
 
 
@@ -49,6 +58,15 @@ def my_logout(request):
     logout(request)
     queryset = Dish.objects.filter()
     return render(request, 'index.html', {'Dish': queryset})
+
+
+@decorators.login_required(login_url='/formlogin')
+def purchaseorder(request):
+    user = request.user
+    customer, created = Customer.objects.get_or_create(customer_id=user.id)
+    carts = customer.cart_set.all().prefetch_related('order_set__dish')
+    carts = reversed(carts)
+    return render(request, 'purchaseorder.html', {'customer': customer, 'carts': carts})
 
 
 def signup(request):
@@ -80,7 +98,7 @@ def updatecart(request):
     id = data['id']
     action = data['action']
     user = request.user
-    customer = Customer.objects.get(customer_id=user.id)
+    customer, created = Customer.objects.get_or_create(customer_id=user.id)
     cart, created = Cart.objects.get_or_create(
         customer_id=customer.id, status='ordering')
     order, created = Order.objects.get_or_create(

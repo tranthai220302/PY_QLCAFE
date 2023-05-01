@@ -10,7 +10,8 @@ class Customer(models.Model):
     number_phone = models.TextField(max_length=10)
     username = User.username
     password = User.password
-    image = models.FileField(blank=True, null=True, upload_to='images/')
+    image = models.FileField(blank=True, null=True,
+                             upload_to='images/', default='img/avata.jpg')
 
     def __str__(self):
         return self.customer.first_name + " " + self.customer.last_name

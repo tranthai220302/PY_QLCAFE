@@ -1,4 +1,5 @@
 {% load static %}
+{% load humanize %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,6 +39,11 @@
         .fb-plus::before {
             content: "\f068";
         }
+
+        .nav-link {
+            color: #070706;
+
+        }
     </style>
 </head>
 
@@ -55,7 +61,8 @@
 
         <!-- Navbar & Hero Start -->
         <div class="container-xxl position-relative p-0">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0"
+                style="background-color: #0F172B !important;">
                 <a href="" class="navbar-brand p-0">
                     <h1 class="text-primary m-0"><img src="{% static 'img/logo.png'%}" alt="Logo">Blissful</h1>
                 </a>
@@ -76,138 +83,169 @@
                             </div>
                         </div>
                         <a href="{% url 'menu' %}" class="nav-item nav-link">Menu</a>
-                        <a href="{% url 'cart' %}" class="nav-item nav-link active">Cart<i class="fas fa-cart-plus"
+                        <a href="{% url 'cart' %}" class="nav-item nav-link">Cart<i class="fas fa-cart-plus"
                                 style="padding-left: 4px;"></i></a>
                         <a href="{% url 'formlogin' %}" id="login-btn" class="nav-item nav-link">Login</a>
-                        <div class="nav-item dropdown" id="logout-btn">
-                            <a href="#" class="nav-link dropdown-toggle"
+                        <div class="nav-item dropdown">
+                            <a href="{%url 'myaccount'%}" class="nav-link dropdown-toggle  active" id="logout-btn"
                                 data-bs-toggle="dropdown">{{request.user.username}}</a>
                             <div class="dropdown-menu m-0">
-                                <a href="{% url 'myaccount'%}" class="dropdown-item">My Account</a>
-                                <a href="{%url 'purchaseorder'%}" class="dropdown-item">purchaseorder</a>
-                                <a href="testimonial.html" class="dropdown-item">Logout</a>
+                                <a href="{%url 'myaccount'%}" class="dropdown-item">My Account</a>
+                                <a href="{%url 'purchaseorder'%}" class="dropdown-item">Purchase Order</a>
+                                <a href="{%url 'my_logout'%}" class="dropdown-item">Logout</a>
                             </div>
                         </div>
                     </div>
 
                 </div>
             </nav>
-
-            <div class="container-xxl py-5 bg-dark hero-header mb-5">
-                <div class="container text-center my-5 pt-5 pb-4">
-                    <h1 class="display-3 text-white mb-3 animated slideInDown">Cart</h1>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb justify-content-center text-uppercase">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item text-white active" aria-current="page">Cart</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
         </div>
         <!-- Navbar & Hero End -->
 
 
         <!-- Reservation Start -->
-        <div class="container-xxl py-5 px-0 wow fadeInUp" data-wow-delay="0.1s">
-            <div class="row g-0">
-                <div class="col-md-6 bg-dark d-flex align-items-center">
+        <div class="container-xxl py-5 px-0 wow fadeInUp" data-wow-delay="0.1s" style="padding-top: 100px !important;">
+            <div class="row g-0" style="background-color: aliceblue;">
+
+                <div class="col-md-6 bg-dark  align-items-center"
+                    style="width: 30%;background-color: white !important;">
                     <div class="p-5 wow fadeInUp" data-wow-delay="0.2s">
-                        <h5 class="section-title ff-secondary text-start text-primary fw-normal"><i
-                                class="fas fa-cart-plus" style="padding-left: 4px;"></i></h5>
-                        <h1 class="text-white mb-4">Your cart</h1>
-                        <div class="row g-3">
-                            <div class="card mb-4">
-                                <div class="card-body">
-                                    {% if orders|length == 0 %}
-                                    <div class="ms-3">
-                                        <h5>No items saved for later</h5>
-                                    </div>
-                                    {% endif %}
-                                    {% for order in orders %}
-                                    <div class="d-flex justify-content-between">
-                                        <div class="d-flex flex-row align-items-center">
-                                            <div>
-                                                <img src="{%static order.dish.image%}" class="img-fluid rounded-3"
-                                                    alt="Shopping item" style="width: 65px;">
-                                            </div>
-                                            <div class="ms-3">
-                                                <h5>{{order.dish.name}}</h5>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex flex-row align-items-center">
-                                            <div style="width: 50px;">
-                                                <h5 class="fw-normal mb-0" id="dish_amount{{order.dish.id}}">
-                                                    {{order.amount}}</h5>
-                                            </div>
-                                            <div style="width: 80px;">
-                                                <h5 class="mb-0">${{order.dish.price}}</h5>
-                                            </div>
-                                            <button data-id={{order.dish.id}} data-action="remove"
-                                                class="btn btn-lg btn-primary btn-lg-square update-cart"
-                                                style="margin-left: 10px;"><i class="fas fb-plus"></i></button>
-                                            <button data-id={{order.dish.id}} data-action="add"
-                                                class="btn btn-lg btn-primary btn-lg-square update-cart"
-                                                style="margin-left: 10px;"><i class="fas fa-plus"></i></button>
-                                        </div>
-                                    </div>
-                                    {%endfor%}
+                        <h5 class="section-title ff-secondary text-start text-primary fw-normal">Reservation</h5>
+                        <div style="display: flex;">
+                            <div class="d-flex flex-row align-items-center">
+                                <div style="padding: 15px 0px;">
+                                    <img src="{% static customer.image %}" class="img-fluid rounded-3"
+                                        alt="Shopping item"
+                                        style="height: 65px;width: 65px;border-radius: 50%!important;border: 0.2px solid black;">
+
+                                </div>
+                                <div class="ms-3">
+                                    <h5>{{ customer.customer.username }}</h5>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-6 bg-dark d-flex align-items-center">
-                    <div class="p-5 wow fadeInUp" data-wow-delay="0.2s">
-                        <h5 class="section-title ff-secondary text-start text-primary fw-normal">Reservation</h5>
-                        <h1 class="text-white mb-4">Payment Information</h1>
+
                         <form>
                             <div class="row g-3">
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="name" placeholder="Your Name">
-                                        <label for="name">Your Name</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input type="email" class="form-control" id="email" placeholder="Your Email">
-                                        <label for="email">Your Email</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input type="address" class="form-control" id="address"
-                                            placeholder="Your Address" />
-                                        <label for="address">Your Address</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="number"
-                                            placeholder="Phone Number" />
-                                        <label for="text">Phone Number</label>
+                                <div class="col-12">
+                                    <div class="form-floating" style="display: flex; align-items: center !important;">
+                                        <div class="bfikuD"><img
+                                                src="https://down-vn.img.susercontent.com/file/ba61750a46794d8847c3f463c5e71cc4"
+                                                style="width: 20px;height: 20px;">
+                                        </div>
+                                        <div>
+                                            <a href="{% url 'purchaseorder'%}" class="nav-item nav-link"
+                                                style="font: size 1.25rem!important;">My Account</a>
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <div class="form-floating">
-                                        <textarea class="form-control" placeholder="Special Request" id="message"
-                                            style="height: 100px"></textarea>
-                                        <label for="message">Special Request</label>
+                                    <div class="form-floating" style="display: flex; align-items: center !important;">
+                                        <div class="bfikuD"><img
+                                                src="https://down-vn.img.susercontent.com/file/f0049e9df4e536bc3e7f140d071e9078"
+                                                style="width: 20px;height: 20px;">
+
+                                        </div>
+                                        <div><a href="{% url 'purchaseorder'%}" class="nav-item nav-link"
+                                                style="font: size 1.25rem!important;">Purchase Order</a></div>
+
                                     </div>
                                 </div>
-
-                                <hr class="my-4" style="color: #FEA116;">
-
-                                <div class="d-flex justify-content-between mb-4">
-                                    <p class="mb-2 text-light fw-normal">TOTAL PRICE</p>
-                                    <p class="mb-2 text-light fw-normal" id="cart-info">${{total}}</p>
-                                </div>
                                 <div class="col-12">
-                                    <a href="{%url 'pay'%}" class="btn btn-primary w-100 py-3" type="submit">Pay</a>
+                                    <div class="form-floating" style="display: flex; align-items: center !important;">
+                                        <div class="bfikuD"><svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet"
+                                                focusable="false" class="style-scope yt-icon"
+                                                style="pointer-events: none; display: block; width: 20px; height: 20px;">
+                                                <g class="style-scope yt-icon">
+                                                    <path
+                                                        d="M20,3v18H8v-1h11V4H8V3H20z M11.1,15.1l0.7,0.7l4.4-4.4l-4.4-4.4l-0.7,0.7l3.1,3.1H3v1h11.3L11.1,15.1z"
+                                                        class="style-scope yt-icon"></path>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <a href="{% url 'my_logout'%}" class="nav-item nav-link"
+                                                style="font: size 1.25rem!important;">Logout</a>
+
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
                         </form>
+                    </div>
+                </div>
+                <!--end Reservation  -->
+
+
+
+                <div class="col-md-6 bg-dark d-flex align-items-center"
+                    style="width: 70%;;background-color: white !important;">
+                    <div class="p-5 wow fadeInUp" data-wow-delay="0.2s">
+                        <h5 class="section-title ff-secondary text-start text-primary fw-normal"><i
+                                class="fas fa-cart-plus" style="padding-left: 4px;"></i></h5>
+                        <h1 class="text-white mb-4" style="color: rgba(0,0,0,.87)!important;">Purchase Order</h1>
+                        <div class="row g-3">
+                            {% for cart in carts%}
+                            <div class="card mb-4">
+
+
+                                <div class="card mb-4"
+                                    style="border: 0px!important; border-bottom:1px solid rgba(0,0,0,0.125) !important;">
+                                    {% for order in cart.order_set.all %}
+                                    <div class="card-body" style="padding: 0px !important;">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="d-flex flex-row align-items-center">
+                                                <div>
+                                                    <img src="{% static order.dish.image%}" class="img-fluid rounded-3"
+                                                        alt="Shopping item" style="width: 65px;">
+                                                </div>
+                                                <div class="ms-3">
+                                                    <h5>{{order.dish.name}}</h5>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-row align-items-center">
+                                                <div style="width: 70px;">
+                                                    <h5 class="fw-normal mb-0">{{order.amount}}</h5>
+                                                </div>
+                                                <div style="width: 80px;">
+                                                    <h5 class="mb-0">${{order.dish.price}}</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+
+                                </div>
+                                <div class="card mb-4"
+                                    style="border: 0px!important; border-bottom:1px solid rgba(0,0,0,0.125) !important;">
+                                    <div class="card-body" style="padding: 0px !important;">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="d-flex flex-row align-items-center">
+                                                <div class="ms-3">
+                                                    <h5>{{cart.status}}</h5>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-row align-items-center">
+                                                <div style="width: 70px;">
+                                                    <h5 class="fw-normal mb-0">Total:</h5>
+                                                </div>
+                                                <div style="width: 80px;">
+                                                    <h5 class="mb-0">${{cart.total}}</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+                            {% endfor %}
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -285,6 +323,7 @@
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
+    <!-- JavaScript Libraries -->
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
