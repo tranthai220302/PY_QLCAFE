@@ -17,7 +17,7 @@ from django.views.decorators.csrf import csrf_exempt
 import os
 import shutil
 from django.conf import settings
-from django.contrib.auth.models import User
+from Shop.models import User
 # Create your views here.
 
 
@@ -25,30 +25,38 @@ def Home_page(request):
     queryset = Dish.objects.filter()
     nhanvien = Employee.objects.filter()
     if not request.user.is_authenticated:
-        return render(request, 'index.html', {'Dish': queryset, 'nhanvien': nhanvien})
+        return render(request, 'Customer/index.html', {'Dish': queryset, 'nhanvien': nhanvien})
     else:
         user = request.user
         if user.is_staff == True:
-            return render(request, 'index.html', {'Dish': queryset, 'nhanvien': nhanvien})
+            return render(request, 'Customer/index.html', {'Dish': queryset, 'nhanvien': nhanvien})
         else:
-            list_menu = Menu.objects.filter()
-            nhanvien = Employee.objects.filter(employee_id=user.id)
-            return render(request, 'Manage/home.html', {'list_menu': list_menu, 'my_user': user, 'nhanvien': nhanvien})
+            if user.is_admin == True:
+                return render(request, 'Admin/admin.html', {'nhanvien': nhanvien})
+            else:
+                if user.is_admin == True:
+                    return render(request, 'Admin/admin.html', {'nhanvien': nhanvien})
+                else:
+                    list_menu = Menu.objects.filter()
+                    nhanvien = Employee.objects.filter(employee_id=user.id)
+                    return render(request, 'Manage/home.html', {'list_menu': list_menu, 'my_user': user, 'nhanvien': nhanvien})
 
 
 @decorators.login_required(login_url='/formlogin')
 def myaccount(request):
-    return render(request, 'myaccount.html')
+    return render(request, 'Customer/myaccount.html')
 
 
 def formlogin(request):
-    return render(request, 'formLogin.html')
+    return render(request, 'Customer/formLogin.html')
 
 
 def my_login(request):
     if request.method == "POST":
         queryset = Dish.objects.filter()
         user = request.user
+        list_menu = Menu.objects.filter()
+        nhanvien = Employee.objects.filter(employee_id=user.id)
         if not user.is_authenticated:
             user_name = request.POST.get('username')
             pass_word = request.POST.get('password')
@@ -57,38 +65,57 @@ def my_login(request):
             my_user = authenticate(
                 request, username=user_name, password=pass_word)
             if my_user is None:
-                return render(request, 'formLogin.html')
+                return render(request, 'Customer/formLogin.html')
             login(request, my_user)
             print(my_user.is_staff)
             if my_user.is_staff == True:
-                return render(request, 'index.html', {'Dish': queryset})
+                return render(request, 'Customer/index.html', {'Dish': queryset, 'nhanvien': nhanvien})
             else:
-                list_menu = Menu.objects.filter()
-                nhanvien = Employee.objects.filter(employee_id=user.id)
-                return render(request, 'Manage/home.html', {'list_menu': list_menu, 'my_user': user, 'nhanvien': nhanvien})
+                if my_user.is_admin == True:
+                    return render(request, 'Admin/admin.html', {'nhanvien': nhanvien})
+                else:
+                    return render(request, 'Manage/home.html', {'list_menu': list_menu, 'my_user': user, 'nhanvien': nhanvien})
         else:
             if user.is_staff == True:
-                return render(request, 'index.html', {'Dish': queryset})
+                return render(request, 'Customer/index.html', {'Dish': queryset, 'nhanvien': nhanvien})
             else:
-                list_menu = Menu.objects.filter()
-                nhanvien = Employee.objects.filter(employee_id=user.id)
-                return render(request, 'Manage/home.html', {'list_menu': list_menu, 'my_user': user, 'nhanvien': nhanvien})
+                if user.is_admin == True:
+                    return render(request, 'Admin/admin.html', {'nhanvien': nhanvien})
+                else:
+                    list_menu = Menu.objects.filter()
+                    nhanvien = Employee.objects.filter(employee_id=user.id)
+                    return render(request, 'Manage/home.html', {'list_menu': list_menu, 'my_user': user, 'nhanvien': nhanvien})
+    else:
+        user = request.user
+        list_menu = Menu.objects.filter()
+        nhanvien = Employee.objects.filter(employee_id=user.id)
+        if not user.is_authenticated:
+            return render(request, 'Customer/formLogin.html')
+        else:
+            if user.is_staff == True:
+                return render(request, 'Customer/index.html', {'Dish': queryset})
+            else:
+                if user.is_admin == True:
+                    return render(request, 'Admin/admin.html', {'nhanvien': nhanvien})
+                else:
+                    return render(request, 'Manage/home.html', {'list_menu': list_menu, 'my_user': user, 'nhanvien': nhanvien})
 
 
 @decorators.login_required(login_url='/formlogin')
 def my_logout(request):
     logout(request)
     queryset = Dish.objects.filter()
-    return render(request, 'index.html', {'Dish': queryset})
+    nhanvien = Employee.objects.filter()
+    return render(request, 'Customer/index.html', {'Dish': queryset, 'nhanvien': nhanvien})
 
 
-@decorators.login_required(login_url='/formlogin')
+@ decorators.login_required(login_url='/formlogin')
 def purchaseorder(request):
     user = request.user
     customer, created = Customer.objects.get_or_create(customer_id=user.id)
     carts = customer.cart_set.all().prefetch_related('order_set__dish')
     carts = reversed(carts)
-    return render(request, 'purchaseorder.html', {'customer': customer, 'carts': carts})
+    return render(request, 'Customer/purchaseorder.html', {'customer': customer, 'carts': carts})
 
 
 def signup(request):
@@ -102,7 +129,7 @@ def signup(request):
         phone = request.POST.get('phone')
         my_user = User.objects.filter(username=_username)
         if my_user.exists():
-            return render(request, 'formlogin.html', {"form": "form1"})
+            return render(request, 'Customer/formlogin.html', {"form": "form1"})
         User.objects.create_superuser(
             username=_username, email=email, password=password, first_name=firstname, last_name=lastname)
         user = authenticate(request, username=_username, password=password)
@@ -110,9 +137,9 @@ def signup(request):
         Customer.objects.create(
             customer=user, address=_address, number_phone=phone)
         queryset = Dish.objects.filter()
-        return render(request, 'index.html', {"Dish": queryset})
+        return render(request, 'Customer/index.html', {"Dish": queryset})
     else:
-        return render(request, 'menu.html')
+        return render(request, 'Customer/menu.html')
 
 
 def updatecart(request):
@@ -160,7 +187,7 @@ def cart(request):
         total += oder.dish.price * oder.amount
     cart.total = total
     cart.save()
-    return render(request, 'cart.html', {'orders': order, 'total': total})
+    return render(request, 'Customer/cart.html', {'orders': order, 'total': total})
 
 
 @decorators.login_required(login_url='/formlogin')
@@ -176,33 +203,34 @@ def pay(request):
         print(1)
         cart.status = 'delivery'
         cart.save()
-        return render(request, 'cart.html')
-    return render(request, 'cart.html')
+        return render(request, 'Customer/cart.html')
+    return render(request, 'Customer/cart.html')
 
 
 def contact(request):
-    return render(request, 'contact.html')
+    return render(request, 'Customer/contact.html')
 
 
 def menu(request):
     queryset = Dish.objects.filter()
-    return render(request, 'menu.html', {'Dish': queryset})
+    return render(request, 'Customer/menu.html', {'Dish': queryset})
 
 
 def service(request):
-    return render(request, 'service.html')
+    return render(request, 'Customer/service.html')
 
 
 def team(request):
-    return render(request, 'team.html')
+    nhanvien = Employee.objects.filter()
+    return render(request, 'Customer/team.html', {'nhanvien': nhanvien})
 
 
 def testimonial(request):
-    return render(request, 'testimonial.html')
+    return render(request, 'Customer/testimonial.html')
 
 
 def about(request):
-    return render(request, 'about.html')
+    return render(request, 'Customer/about.html')
 
 
 def home(request):

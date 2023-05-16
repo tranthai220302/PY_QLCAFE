@@ -46,20 +46,21 @@
         border: none;
         cursor: pointer;
         transition: background-color 0.3s ease;
-      }
-      
-      .edit-btn:hover {
+    }
+
+    .edit-btn:hover {
         background-color: #218838;
-      }
+    }
+
     .pagination {
         display: flex;
         justify-content: center;
         margin-top: 20px;
-      }
-      
-      .page,
-      .prev,
-      .next {
+    }
+
+    .page,
+    .prev,
+    .next {
         display: inline-block;
         padding: 6px 12px;
         margin-right: 5px;
@@ -67,63 +68,65 @@
         color: #333;
         border: 1px solid #ccc;
         border-radius: 4px;
-      }
-      
-      .page.active {
+    }
+
+    .page.active {
         background-color: #007bff;
         color: #fff;
         border-color: #007bff;
-      }
-      
-      .prev,
-      .next {
+    }
+
+    .prev,
+    .next {
         font-size: 18px;
         font-weight: bold;
         line-height: 1;
-      }
-      
-      .prev:hover,
-      .next:hover,
-      .page:hover {
+    }
+
+    .prev:hover,
+    .next:hover,
+    .page:hover {
         background-color: #f5f5f5;
-      }
-      
-      .prev:disabled,
-      .next:disabled,
-      .prev.disabled,
-      .next.disabled {
+    }
+
+    .prev:disabled,
+    .next:disabled,
+    .prev.disabled,
+    .next.disabled {
         color: #ccc;
         cursor: not-allowed;
         background-color: #fff;
         border-color: #ccc;
-      }
-      .form {
+    }
+
+    .form {
         display: flex;
         flex-direction: column;
         margin-top: 20px;
-      }
-      
-      .label {
+    }
+
+    .label {
         margin-bottom: 8px;
-      }
-      
-      input[type="text"], input[type="file"] {
+    }
+
+    input[type="text"],
+    input[type="file"] {
         padding: 8px;
         border: 1px solid #ccc;
         border-radius: 4px;
         font-size: 16px;
-      }
-      
-      input[type="file"] {
+    }
+
+    input[type="file"] {
         margin-top: 8px;
-      }
-      .add:hover {
+    }
+
+    .add:hover {
         background-color: #fea116;
         color: #fff;
-      }
-      
-      
+    }
 </style>
+
 <body>
     <!-- Button trigger modal -->
     <div class="container-xxl bg-white p-0">
@@ -150,16 +153,16 @@
                     <div class="navbar-nav ms-auto py-0 pe-4">
                         <a href="{% url 'home' %}" class="nav-item nav-link active">Home</a>
                         <a href="{% url 'cartnhanvien' %}" class="nav-item nav-link">Cart<i class="fas fa-cart-plus"
-                            style="padding-left: 4px;"></i></a>
+                                style="padding-left: 4px;"></i></a>
                     </div>
                     <a href="{% url 'my_login' %}" id="login-btn" class="nav-item nav-link">Login</a>
                     <div class="nav-item dropdown" id="logout-btn">
-                        <a href="#" class="nav-link dropdown-toggle"
-                            data-bs-toggle="dropdown" style="text-transform: uppercase; color: white;">{{request.user.username}}</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+                            style="text-transform: uppercase; color: white;">{{request.user.username}}</a>
                         <div class="dropdown-menu m-0">
                             <a href="{% url 'myaccount'%}" class="dropdown-item">My Account</a>
-                            <a href="{%url 'purchaseorder'%}" class="dropdown-item">purchaseorder</a>
-                            <a href="testimonial.html" class="dropdown-item">Logout</a>
+                            <a href="{%url 'purchaseorder'%}" class="dropdown-item">Purchase Order</a>
+                            <a href="{%url 'my_logout'%}" class="dropdown-item">Logout</a>
                         </div>
                     </div>
                 </div>
@@ -202,13 +205,13 @@
                             <a class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active" data-bs-toggle="pill"
                                 href="#tab-1">
                                 {% if menu.type == 'Coffee' %}
-                                    <i class="fa fa-coffee fa-2x text-primary"></i>
+                                <i class="fa fa-coffee fa-2x text-primary"></i>
                                 {% endif %}
                                 {% if menu.type == 'Milk_Tea' %}
-                                    <i class="fa fa-glass-whiskey fa-2x text-primary"></i>
+                                <i class="fa fa-glass-whiskey fa-2x text-primary"></i>
                                 {% endif %}
                                 {% if menu.type == 'Cake' %}
-                                    <i class="fa fa-cookie fa-2x text-primary"></i>
+                                <i class="fa fa-cookie fa-2x text-primary"></i>
                                 {% endif %}
                                 <div class="ps-3">
                                     <small class="text-body">Popular</small>
@@ -220,94 +223,101 @@
 
                     <div class="tab-content">
                         <!-- <button type="button" class="add" style="margin-bottom: 10px;  width: 60px; background-color: dimgray; border: none; padding: 10px 0;"><i class="fas fa-plus"></i></button> -->
-                        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                             <i class="fas fa-plus"></i>
-                          </button>
-                          <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+                        </button>
+                        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+                            aria-labelledby="offcanvasExampleLabel">
                             <div class="offcanvas-header">
-                              <h5 class="offcanvas-title" id="offcanvasExampleLabel">Add {{menu.type}}</h5>
-                              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Add {{menu.type}}</h5>
+                                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
                             </div>
                             <div class="offcanvas-body">
-                              <div>
-                                <div class="form-group">
-                                    <label class="col-form-label mt-4" for="inputDefault">Name {{menu.type}}</label>
-                                    <input type="text" class="form-control" placeholder="Default input" id="name">
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-form-label mt-4" for="inputDefault">Price {{menu.type}}</label>
-                                    <input type="text" class="form-control" placeholder="Default input" id="price">
-                                </div>
-                                <div class="form-group">
-                                    <label for="formFile" class="form-label mt-4">Image {{menu.type}}</label>
-                                    <input class="form-control" type="file" id="image">
-                                </div> 
-                                <input type="hidden" class="menu{{dish.id}}" placeholder="{{menu.id}}" id="menu" value="{{menu.id}}" name="menu_id">
+                                <div>
+                                    <div class="form-group">
+                                        <label class="col-form-label mt-4" for="inputDefault">Name {{menu.type}}</label>
+                                        <input type="text" class="form-control" placeholder="Default input" id="name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label mt-4" for="inputDefault">Price
+                                            {{menu.type}}</label>
+                                        <input type="text" class="form-control" placeholder="Default input" id="price">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formFile" class="form-label mt-4">Image {{menu.type}}</label>
+                                        <input class="form-control" type="file" id="image">
+                                    </div>
+                                    <input type="hidden" class="menu{{dish.id}}" placeholder="{{menu.id}}" id="menu"
+                                        value="{{menu.id}}" name="menu_id">
 
-                              </div>
-                              <div class="dropdown mt-3">
-                                <button id = 'add' type="button" class="btn btn-success">Success</button>
-                              </div>
+                                </div>
+                                <div class="dropdown mt-3">
+                                    <button id='add' type="button" class="btn btn-success">Success</button>
+                                </div>
                             </div>
-                          </div>
+                        </div>
                         <script>
-                            $(document).ready(function() {
-                                $('#add').click(function(e) {
-                                  e.preventDefault();
-                                  
-                                  var csrf_token = $('input[name="csrfmiddlewaretoken"]').val();
-                                  var menu = $('#menu').val();
-                                  var name = $('#name').val();
-                                  var price = $('#price').val();
-                                  var image = $('#image')[0].files[0];
-                                  if(!image){
-                                    alert("Vui lòng nhập ảnh")
-                                  }else{
-                                    var formData = new FormData();
-                                    formData.append('menu_id', menu);
-                                    formData.append('name', name);
-                                    formData.append('price', price);
-                                    formData.append('image', image);
-                                    formData.append('csrfmiddlewaretoken', csrf_token);
-                              
-                                      $.ajax({
-                                          url: '/create_dish',
-                                          type: 'POST',
-                                          data: formData,
-                                          contentType: false,
-                                          processData: false,
-                                          success: function(data) {
-                                              if (data.success) {
-                                                  // Update the name, price, and image elements
-                                                  location.reload();
-                                                  
-                                              }
-                                          },
-                                      }); 
-                                  }
+                            $(document).ready(function () {
+                                $('#add').click(function (e) {
+                                    e.preventDefault();
+
+                                    var csrf_token = $('input[name="csrfmiddlewaretoken"]').val();
+                                    var menu = $('#menu').val();
+                                    var name = $('#name').val();
+                                    var price = $('#price').val();
+                                    var image = $('#image')[0].files[0];
+                                    if (!image) {
+                                        alert("Vui lòng nhập ảnh")
+                                    } else {
+                                        var formData = new FormData();
+                                        formData.append('menu_id', menu);
+                                        formData.append('name', name);
+                                        formData.append('price', price);
+                                        formData.append('image', image);
+                                        formData.append('csrfmiddlewaretoken', csrf_token);
+
+                                        $.ajax({
+                                            url: '/create_dish',
+                                            type: 'POST',
+                                            data: formData,
+                                            contentType: false,
+                                            processData: false,
+                                            success: function (data) {
+                                                if (data.success) {
+                                                    // Update the name, price, and image elements
+                                                    location.reload();
+
+                                                }
+                                            },
+                                        });
+                                    }
                                 });
                             });
                         </script>
                         <div id="tab-1" class="tab-pane fade show p-0 active">
                             <div class="row g-4">
                                 {% for dish in list_Dish %}
-                                <div class="col-lg-6" style="margin-top: 40px; margin-left: 25%;" id="post-{{ dish.id }}" data-post-id="{{ dish.id }}">
-                                    <div class="d-flex align-items-center" >
-                                        <img class="flex-shrink-0 img-fluid rounded" src="{% static dish.image %}" alt=""
-                                            style="width: 80px;">
+                                <div class="col-lg-6" style="margin-top: 40px; margin-left: 25%;"
+                                    id="post-{{ dish.id }}" data-post-id="{{ dish.id }}">
+                                    <div class="d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="{% static dish.image %}"
+                                            alt="" style="width: 80px;">
                                         <div class="w-100 d-flex flex-column text-start ps-4">
                                             <h5 class="d-flex justify-content-between border-bottom pb-2">
                                                 <span>{{dish.name}}</span>
                                                 <span class="text-primary">{{dish.price}} $</span>
                                             </h5>
                                         </div>
-                                        <button class="delete-post" data-post-id="{{ dish.id }}"  style="margin-left: 30px;"><i class="fa-solid fa-trash"></i></button>
+                                        <button class="delete-post" data-post-id="{{ dish.id }}"
+                                            style="margin-left: 30px;"><i class="fa-solid fa-trash"></i></button>
                                         {% block javascript %}
                                         <script>
                                             var csrf_token = $('input[name="csrfmiddlewaretoken"]').val();
-                                        
-                                            $(document).ready(function() {
-                                                $(document).on('click', '.delete-post', function() {
+
+                                            $(document).ready(function () {
+                                                $(document).on('click', '.delete-post', function () {
                                                     var post_id = $(this).data('post-id');
                                                     $.ajax({
                                                         url: '/delete_post',
@@ -317,14 +327,14 @@
                                                             csrfmiddlewaretoken: csrf_token
                                                         },
                                                         dataType: 'json',
-                                                        success: function(data) {
+                                                        success: function (data) {
                                                             if (data.deleted) {
                                                                 $('#post-' + post_id).remove();
                                                             } else {
                                                                 alert('Failed to delete post.');
                                                             }
                                                         },
-                                                        error: function(jqXHR, textStatus, errorThrown) {
+                                                        error: function (jqXHR, textStatus, errorThrown) {
                                                             alert('Failed to delete post: ' + errorThrown);
                                                         }
                                                     });
@@ -332,104 +342,120 @@
                                             });
                                         </script>
                                         {% endblock %}
-                                        
-                                        <button class="btn btn-primar" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample{{dish.id}}" aria-controls="offcanvasExample{{dish.id}}">
+
+                                        <button class="btn btn-primar" type="button" data-bs-toggle="offcanvas"
+                                            data-bs-target="#offcanvasExample{{dish.id}}"
+                                            aria-controls="offcanvasExample{{dish.id}}">
                                             <i class="fa-sharp fa-solid fa-user-pen"></i>
-                                          </button>
-                                          <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample{{dish.id}}" aria-labelledby="offcanvasExampleLabel">
+                                        </button>
+                                        <div class="offcanvas offcanvas-start" tabindex="-1"
+                                            id="offcanvasExample{{dish.id}}" aria-labelledby="offcanvasExampleLabel">
                                             <div class="offcanvas-header">
-                                              <h5 class="offcanvas-title" id="offcanvasExampleLabel">Edit {{menu.type}}</h5>
-                                              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Edit
+                                                    {{menu.type}}</h5>
+                                                <button type="button" class="btn-close text-reset"
+                                                    data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                             </div>
                                             <div class="offcanvas-body">
-                                              <div>
-                                                <div class="form" style="margin-top: 20px;">
-                                                  <label class="label" for="inputDefault">Name {{menu.type}}</label>
-                                                  <input type="text" class="name{{dish.id}}" placeholder="{{dish.name}}" id="inputDefault1-{{dish.id}}" value="{{dish.name}}" name="name">
+                                                <div>
+                                                    <div class="form" style="margin-top: 20px;">
+                                                        <label class="label" for="inputDefault">Name
+                                                            {{menu.type}}</label>
+                                                        <input type="text" class="name{{dish.id}}"
+                                                            placeholder="{{dish.name}}" id="inputDefault1-{{dish.id}}"
+                                                            value="{{dish.name}}" name="name">
+                                                    </div>
+                                                    <div class="form" style="margin-top: 40px;">
+                                                        <label class="label" for="inputDefault">Price
+                                                            {{menu.type}}</label>
+                                                        <input type="text" class="price{{dish.id}}"
+                                                            placeholder="{{dish.price}}" id="inputDefault2-{{dish.id}}"
+                                                            value="{{dish.price}}" name="price">
+                                                    </div>
+                                                    <div class="form" style="margin-top: 40px;">
+                                                        <label for="formFile" class="label">Image {{menu.type}}</label>
+                                                        <input type="file" name="image" id="" class="image{{dish.id}}">
+                                                    </div>
+                                                    <input type="hidden" class="menu{{dish.id}}"
+                                                        placeholder="{{menu.id}}" id="inputDefault3-{{dish.id}}"
+                                                        value="{{menu.id}}" name="menu_id">
+                                                    <input type="hidden" class="form-control-{{dish.id}}"
+                                                        placeholder="{{dish.id}}" id="inputDefault4-{{dish.id}}"
+                                                        value="{{dish.id}}" name="dish_id">
                                                 </div>
-                                                <div class="form" style="margin-top: 40px;">
-                                                  <label class="label" for="inputDefault">Price {{menu.type}}</label>
-                                                  <input type="text" class="price{{dish.id}}" placeholder="{{dish.price}}" id="inputDefault2-{{dish.id}}" value="{{dish.price}}" name="price">
+                                                <div class="dropdown mt-3">
+                                                    <button type="submit" class="edit-btn"
+                                                        data-dish-id="{{dish.id}}">Success</button>
                                                 </div>
-                                                <div class="form" style="margin-top: 40px;">
-                                                  <label for="formFile" class="label">Image {{menu.type}}</label>
-                                                  <input type="file" name="image" id="" class="image{{dish.id}}">
-                                                </div>
-                                                <input type="hidden" class="menu{{dish.id}}" placeholder="{{menu.id}}" id="inputDefault3-{{dish.id}}" value="{{menu.id}}" name="menu_id">
-                                                <input type="hidden" class="form-control-{{dish.id}}" placeholder="{{dish.id}}" id="inputDefault4-{{dish.id}}" value="{{dish.id}}" name="dish_id">
-                                              </div>
-                                              <div class="dropdown mt-3">
-                                                <button type="submit" class="edit-btn" data-dish-id="{{dish.id}}">Success</button>
-                                              </div>
                                             </div>
-                                          </div>
-                                            <script>
-                                                $(document).ready(function() {
-                                                    $('.edit-btn').click(function(e) {
-                                                      e.preventDefault();
-                                                      
-                                                      var csrf_token = $('input[name="csrfmiddlewaretoken"]').val();
-                                                      var dish_id = $(this).attr('data-dish-id');
-                                                      var name = $('.name'+dish_id).val();
-                                                      var price = $('.price'+dish_id).val();
-                                                      var image = $('.image'+dish_id)[0].files[0];
-                                                      if(!image){
+                                        </div>
+                                        <script>
+                                            $(document).ready(function () {
+                                                $('.edit-btn').click(function (e) {
+                                                    e.preventDefault();
+
+                                                    var csrf_token = $('input[name="csrfmiddlewaretoken"]').val();
+                                                    var dish_id = $(this).attr('data-dish-id');
+                                                    var name = $('.name' + dish_id).val();
+                                                    var price = $('.price' + dish_id).val();
+                                                    var image = $('.image' + dish_id)[0].files[0];
+                                                    if (!image) {
                                                         alert("Vui lòng nhập ảnh")
-                                                      }else{
+                                                    } else {
                                                         var formData = new FormData();
                                                         formData.append('dish_id', dish_id);
                                                         formData.append('name', name);
                                                         formData.append('price', price);
                                                         formData.append('image', image);
                                                         formData.append('csrfmiddlewaretoken', csrf_token);
-                                                  
-                                                          $.ajax({
-                                                              url: '/edit_dish',
-                                                              type: 'POST',
-                                                              data: formData,
-                                                              contentType: false,
-                                                              processData: false,
-                                                              success: function(data) {
-                                                                  if (data.success) {
-                                                                      // Update the name, price, and image elements
-                                                                      var nameElement = $('#post-'+dish_id+' h5 span:first-child');
-                                                                      var priceElement = $('#post-'+dish_id+' h5 span:last-child');
-                                                                      var imageElement = $('#post-'+dish_id+' img');
-                                                                      
-                                                                      nameElement.text(name);
-                                                                      priceElement.text(price + ' $');
-                                                                      imageElement.attr('src', URL.createObjectURL(image));
-                                                                      
-                                                                      // Hide the offcanvas
-                                                                      var offcanvasElement = $('#offcanvasExample'+dish_id);
-                                                                      offcanvasElement.offcanvas('hide');
-                                                                  }
-                                                              },
-                                                          }); 
-                                                      }
-                                                    });
+
+                                                        $.ajax({
+                                                            url: '/edit_dish',
+                                                            type: 'POST',
+                                                            data: formData,
+                                                            contentType: false,
+                                                            processData: false,
+                                                            success: function (data) {
+                                                                if (data.success) {
+                                                                    // Update the name, price, and image elements
+                                                                    var nameElement = $('#post-' + dish_id + ' h5 span:first-child');
+                                                                    var priceElement = $('#post-' + dish_id + ' h5 span:last-child');
+                                                                    var imageElement = $('#post-' + dish_id + ' img');
+
+                                                                    nameElement.text(name);
+                                                                    priceElement.text(price + ' $');
+                                                                    imageElement.attr('src', URL.createObjectURL(image));
+
+                                                                    // Hide the offcanvas
+                                                                    var offcanvasElement = $('#offcanvasExample' + dish_id);
+                                                                    offcanvasElement.offcanvas('hide');
+                                                                }
+                                                            },
+                                                        });
+                                                    }
                                                 });
-                                                
-                                            </script>
-                                        </div>
-                                        <!-- <a href="{% url 'edit' id=dish.id}" class=""
+                                            });
+
+                                        </script>
+                                    </div>
+                                    <!-- <a href="{% url 'edit' id=dish.id}" class=""
                                             style="margin-left: 20px;"><i class="fa-solid fa-trash"></i></a>
                                         <a href="{% url 'delete' id=dish.id}" class=""
                                             style="margin-left: 10px;"><i class="fa-sharp fa-solid fa-user-pen"></i></a>  -->
-                                    </div>
                                 </div>
-                                {% endfor %}
                             </div>
+                            {% endfor %}
                         </div>
-                        <div class="pagination">
+                    </div>
+                    <div class="pagination">
                         {% for i in num_page %}
-                            {% if i == id_page %}
-                                <a href="{% url 'manage_menu' id=menu.id id_page=i %}" class="page active">{{i}}</a>
-                            {% else %}
-                                <a href="{% url 'manage_menu' id=menu.id id_page=i %}" class="page">{{ i }}</a>
-                            {% endif %}
+                        {% if i == id_page %}
+                        <a href="{% url 'manage_menu' id=menu.id id_page=i %}" class="page active">{{i}}</a>
+                        {% else %}
+                        <a href="{% url 'manage_menu' id=menu.id id_page=i %}" class="page">{{ i }}</a>
+                        {% endif %}
                         {% endfor %}
-                        
+
 
                     </div>
                 </div>
@@ -501,7 +527,7 @@
     <script src='{%static "lib/tempusdominus/js/moment.min.js"%}'></script>
     <script src='{%static "lib/tempusdominus/js/moment-timezone.min.js"%}'></script>
     <script src='{%static "lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"%}'></script>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Template Javascript -->

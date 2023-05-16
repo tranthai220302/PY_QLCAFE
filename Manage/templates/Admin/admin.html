@@ -1,0 +1,96 @@
+{% load static%}
+</div>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href='{% static "img/logoIcon.png"%}'>
+    <title>Blissful</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href='{% static "img/favicon.ico"%}' rel="icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .add-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .add-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Quản lý nhân viên</h1>
+
+    <button class="add-button">Thêm nhân viên</button>
+    <a href="{%url 'my_logout'%}" class="dropdown-item">Logout</a>
+    <table>
+        <tr>
+            <th>Tài Khoản</th>
+            <th>Họ tên</th>
+            <th>Địa Chỉ</th>
+            <th>Số Điện Thoai</th>
+            <th>Email</th>
+            <th>Chức Vụ</th>
+            <th>Thao tác</th>
+        </tr>
+        {% for nv in nhanvien %}
+
+        <tr>
+            <td>{{nv.employee.username}}</td>
+            <td>{{nv}}</td>
+            <td>{{nv.address}}</td>
+            <td>{{nv.number_phone}}</td>
+            <td>{{nv.employee.email}}</td>
+            <td>{{nv.position}}</td>
+
+            <td>
+                <button>Sửa</button>
+                <button>Xóa</button>
+            </td>
+
+        </tr>
+        {% endfor %}
+        <!-- Các dòng dữ liệu khác -->
+    </table>
+</body>
+
+</html>

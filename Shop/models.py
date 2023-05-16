@@ -1,7 +1,11 @@
 
-
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import User
+
+
+class User(AbstractUser):
+    is_admin = models.BooleanField(default=False)
 
 
 class Customer(models.Model):
@@ -23,7 +27,17 @@ class Employee(models.Model):
     number_phone = models.TextField(max_length=10)
     username = User.username
     password = User.password
-    image = models.FileField(blank=True, null=True, upload_to='images/')
+    option1 = 'Phục Vụ'
+    option2 = 'Bưng Bê'
+    option3 = 'Pha Bhế'
+    TYPE = (
+        (option1, option1),
+        (option2, option2),
+        (option3, option3),
+    )
+    position = models.CharField(max_length=50, choices=TYPE, default=option1)
+    image = models.FileField(blank=True, null=True,
+                             upload_to='images/', default='img/avata.jpg')
     name = str(User.first_name) + " " + str(User.last_name)
 
     def __str__(self):

@@ -16,8 +16,7 @@ SECRET_KEY = 'django-insecure-6+lpgto0vvs)y3ynk$36g%i_yongmhja6et#ta4b#p7^hkg@+(
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
+AUTH_USER_MODEL = "Shop.User"
 # Application definition
 
 INSTALLED_APPS = [
@@ -69,7 +68,7 @@ WSGI_APPLICATION = 'Blissfuls.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'database',
+        'NAME': 'efff',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': ''

@@ -19,11 +19,6 @@ urlpatterns = [
     path('pay', views.pay, name="pay"),
     path('purchaseorder', views.purchaseorder, name="purchaseorder"),
     path('myaccount', views.myaccount, name="myaccount"),
-    # login
-    # path('login', views.login_view, name='login'),
-    # path('checklogin', views.dangnhap, name='checklogin'),
-    # path('logout', views.my_logout, name='logout'),
-    # addDish
     path('home/', views.home, name='home'),
     path('manage_menu<int:id>/<int:id_page>',
          views.manage_menu, name='manage_menu'),

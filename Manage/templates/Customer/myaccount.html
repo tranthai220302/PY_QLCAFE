@@ -114,13 +114,13 @@
                         <div style="display: flex;">
                             <div class="d-flex flex-row align-items-center">
                                 <div style="padding: 15px 0px;">
-                                    <img src="{% static customer.image %}" class="img-fluid rounded-3"
-                                        alt="Shopping item"
+                                    <img src="{% static request.user.customer_set.first.image %}"
+                                        class="img-fluid rounded-3" alt="Shopping item"
                                         style="height: 65px;width: 65px;border-radius: 50%!important;border: 0.2px solid black;">
 
                                 </div>
                                 <div class="ms-3">
-                                    <h5>{{ customer.customer.username }}</h5>
+                                    <h5>{{request.user.username}}</h5>
                                 </div>
                             </div>
                         </div>
@@ -134,7 +134,7 @@
                                                 style="width: 20px;height: 20px;">
                                         </div>
                                         <div>
-                                            <a href="{% url 'purchaseorder'%}" class="nav-item nav-link"
+                                            <a href="{% url 'myaccount'%}" class="nav-item nav-link"
                                                 style="font: size 1.25rem!important;">My Account</a>
                                         </div>
 
@@ -182,71 +182,11 @@
 
                 <div class="col-md-6 bg-dark d-flex align-items-center"
                     style="width: 70%;;background-color: white !important;">
-                    <div class="p-5 wow fadeInUp" data-wow-delay="0.2s">
-                        <h5 class="section-title ff-secondary text-start text-primary fw-normal"><i
-                                class="fas fa-cart-plus" style="padding-left: 4px;"></i></h5>
-                        <h1 class="text-white mb-4" style="color: rgba(0,0,0,.87)!important;">Purchase Order</h1>
-                        <div class="row g-3">
-                            {% for cart in carts%}
-                            <div class="card mb-4">
-
-
-                                <div class="card mb-4"
-                                    style="border: 0px!important; border-bottom:1px solid rgba(0,0,0,0.125) !important;">
-                                    {% for order in cart.order_set.all %}
-                                    <div class="card-body" style="padding: 0px !important;">
-                                        <div class="d-flex justify-content-between">
-                                            <div class="d-flex flex-row align-items-center">
-                                                <div>
-                                                    <img src="{% static order.dish.image%}" class="img-fluid rounded-3"
-                                                        alt="Shopping item" style="width: 65px;">
-                                                </div>
-                                                <div class="ms-3">
-                                                    <h5>{{order.dish.name}}</h5>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex flex-row align-items-center">
-                                                <div style="width: 70px;">
-                                                    <h5 class="fw-normal mb-0">{{order.amount}}</h5>
-                                                </div>
-                                                <div style="width: 80px;">
-                                                    <h5 class="mb-0">${{order.dish.price}}</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {% endfor %}
-
-                                </div>
-                                <div class="card mb-4"
-                                    style="border: 0px!important; border-bottom:1px solid rgba(0,0,0,0.125) !important;">
-                                    <div class="card-body" style="padding: 0px !important;">
-                                        <div class="d-flex justify-content-between">
-                                            <div class="d-flex flex-row align-items-center">
-                                                <div class="ms-3">
-                                                    <h5>{{cart.status}}</h5>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex flex-row align-items-center">
-                                                <div style="width: 70px;">
-                                                    <h5 class="fw-normal mb-0">Total:</h5>
-                                                </div>
-                                                <div style="width: 80px;">
-                                                    <h5 class="mb-0">${{cart.total}}</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-
-                            </div>
-                            {% endfor %}
-
-                        </div>
-                    </div>
+                    <h1>{{ request.user.first_name }}</h1>
+                    <h1>{{ request.user.last_name }}</h1>
+                    <h1>{{ request.user.email }}</h1>
+                    <h1>{{ request.user.customer_set.first.address }}</h1>
+                    <h1>{{ request.user.customer_set.first.phone_number }}</h1>
                 </div>
             </div>
         </div>
