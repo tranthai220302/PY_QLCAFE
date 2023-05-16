@@ -56,7 +56,7 @@ def my_login(request):
         queryset = Dish.objects.filter()
         user = request.user
         list_menu = Menu.objects.filter()
-        nhanvien = Employee.objects.filter(employee_id=user.id)
+        nhanvien = Employee.objects.filter()
         if not user.is_authenticated:
             user_name = request.POST.get('username')
             pass_word = request.POST.get('password')
@@ -72,6 +72,9 @@ def my_login(request):
                 return render(request, 'Customer/index.html', {'Dish': queryset, 'nhanvien': nhanvien})
             else:
                 if my_user.is_admin == True:
+                    print("thianug")
+                    nhanvien = Employee.objects.filter()
+                    print(nhanvien)
                     return render(request, 'Admin/admin.html', {'nhanvien': nhanvien})
                 else:
                     return render(request, 'Manage/home.html', {'list_menu': list_menu, 'my_user': user, 'nhanvien': nhanvien})
@@ -140,6 +143,37 @@ def signup(request):
         return render(request, 'Customer/index.html', {"Dish": queryset})
     else:
         return render(request, 'Customer/menu.html')
+
+
+def signupemployee(request):
+    if request.method == 'POST':
+        firstname = request.POST.get('firstname')
+        lastname = request.POST.get('lastname')
+        _username = request.POST.get('username')
+        password = request.POST.get('password')
+        email = request.POST.get('email')
+        _address = request.POST.get('Address')
+        phone = request.POST.get('phone')
+        my_user = User.objects.filter(username=_username)
+        if my_user.exists():
+            return render(request, 'Customer/formlogin.html', {"form": "form1"})
+        User.objects.create_user(
+            username=_username, email=email, password=password, first_name=firstname, last_name=lastname, is_staff=False)
+        user = authenticate(request, username=_username, password=password)
+        login(request, user)
+        Employee.objects.create(
+            employee=user, address=_address, number_phone=phone)
+        nhanvien = Employee.objects.filter()
+        return render(request, 'Admin/admin.html', {'nhanvien': nhanvien})
+    else:
+        return render(request, 'Admin/admin.html', {'nhanvien': nhanvien})
+
+
+def delete(request, id):
+    employee = Employee.objects.get(id=id)
+    employee.delete()
+    nhanvien = Employee.objects.filter()
+    return render(request, 'Admin/admin.html', {'nhanvien': nhanvien})
 
 
 def updatecart(request):

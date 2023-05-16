@@ -54,20 +54,116 @@
         .add-button:hover {
             background-color: #45a049;
         }
+
+        .edit-link,
+        .delete-link {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        .edit-link:hover,
+        .delete-link:hover {
+            background-color: #45a049;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Button styles */
+        .add-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .add-button:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 
 <body>
+
     <h1>Quản lý nhân viên</h1>
 
-    <button class="add-button">Thêm nhân viên</button>
-    <a href="{%url 'my_logout'%}" class="dropdown-item">Logout</a>
+    <button class="add-button" onclick="openModal()">Thêm nhân viên</button>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Thêm nhân viên</h2>
+            <form id="addEmployeeForm">
+                <!-- Các trường nhập liệu cho việc thêm nhân viên -->
+                <label for="username">Tài khoản:</label>
+                <input type="text" id="username" name="username">
+
+                <label for="address">Địa chỉ:</label>
+                <input type="text" id="address" name="address">
+
+                <label for="phone">Số điện thoại:</label>
+                <input type="text" id="phone" name="phone">
+
+                <label for="position">Chức vụ:</label>
+                <select id="position" name="position">
+                    <option value="Phục Vụ">Phục Vụ</option>
+                    <option value="Bưng Bê">Bưng Bê</option>
+                    <option value="Pha Chế">Pha Chế</option>
+                </select>
+
+                <button type="submit">Thêm</button>
+            </form>
+        </div>
+    </div>
+
+    <a href="{% url 'my_logout' %}" class="dropdown-item">Logout</a>
     <table>
         <tr>
             <th>Tài Khoản</th>
             <th>Họ tên</th>
             <th>Địa Chỉ</th>
-            <th>Số Điện Thoai</th>
+            <th>Số Điện Thoại</th>
             <th>Email</th>
             <th>Chức Vụ</th>
             <th>Thao tác</th>
@@ -75,22 +171,45 @@
         {% for nv in nhanvien %}
 
         <tr>
-            <td>{{nv.employee.username}}</td>
-            <td>{{nv}}</td>
-            <td>{{nv.address}}</td>
-            <td>{{nv.number_phone}}</td>
-            <td>{{nv.employee.email}}</td>
-            <td>{{nv.position}}</td>
+            <td>{{ nv.employee.username }}</td>
+            <td>{{ nv }}</td>
+            <td>{{ nv.address }}</td>
+            <td>{{ nv.number_phone }}</td>
+            <td>{{ nv.employee.email }}</td>
+            <td>{{ nv.position }}</td>
 
             <td>
-                <button>Sửa</button>
-                <button>Xóa</button>
+                <a href="#" class="edit-link">Sửa</a>
+                <a href="{% url 'delete' nv.id %}" class="delete-link">Xóa</a>
             </td>
-
         </tr>
         {% endfor %}
         <!-- Các dòng dữ liệu khác -->
     </table>
+
+    <script>
+        // Mở modal
+        function openModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "block";
+        }
+
+        // Đóng modal
+        function closeModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+
+        // Xử lý sự kiện submit form
+        document.getElementById("addEmployeeForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            // Thực hiện các xử lý lưu thông tin nhân viên
+            // ...
+            // Sau khi xử lý xong, đóng modal
+            closeModal();
+        });
+
+    </script>
 </body>
 
 </html>

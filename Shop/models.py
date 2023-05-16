@@ -43,6 +43,10 @@ class Employee(models.Model):
     def __str__(self):
         return self.employee.first_name + " " + self.employee.last_name
 
+    def delete(self, *args, **kwargs):
+        self.employee.delete()
+        super().delete(*args, **kwargs)
+
 
 class Menu(models.Model):
     # disk = models.ForeignKey(Disk, on_delete=models.CASCADE)

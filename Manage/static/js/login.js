@@ -1,4 +1,4 @@
-
+console.log(2)
 $(document).ready(function () {
     $('input[name="username"]').focus();
 });
