@@ -11,7 +11,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href='{% static "img/favicon.ico"%}'' rel="icon">
+    <link href='{% static "img/favicon.ico"%}' rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -112,7 +112,7 @@
         <div class="container-xxl py-5 px-0 wow fadeInUp" data-wow-delay="0.1s">
             <div class="row g-0">
                 <div class="col-md-6 bg-dark d-flex align-items-center">
-                    <div class="p-5 wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="p-5 wow fadeInUp" data-wow-delay="0.2s" style="width: -webkit-fill-available;">
                         <h5 class="section-title ff-secondary text-start text-primary fw-normal"><i
                                 class="fas fa-cart-plus" style="padding-left: 4px;"></i></h5>
                         <h1 class="text-white mb-4">Your cart</h1>
@@ -143,10 +143,10 @@
                                             <div style="width: 80px;">
                                                 <h5 class="mb-0">${{order.dish.price}}</h5>
                                             </div>
-                                            <button data-id={{order.dish.id}} data-action="remove"
+                                            <button data-name="{{order.dish.name}}" data-id={{order.dish.id}} data-action="remove"
                                                 class="btn btn-lg btn-primary btn-lg-square update-cart"
                                                 style="margin-left: 10px;"><i class="fas fb-plus"></i></button>
-                                            <button data-id={{order.dish.id}} data-action="add"
+                                            <button data-name="{{order.dish.name}}" data-id={{order.dish.id}} data-action="add"
                                                 class="btn btn-lg btn-primary btn-lg-square update-cart"
                                                 style="margin-left: 10px;"><i class="fas fa-plus"></i></button>
                                         </div>
@@ -161,32 +161,36 @@
                     <div class="p-5 wow fadeInUp" data-wow-delay="0.2s">
                         <h5 class="section-title ff-secondary text-start text-primary fw-normal">Reservation</h5>
                         <h1 class="text-white mb-4">Payment Information</h1>
-                        <form>
+                        <form id="myForm">
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="name" placeholder="Your Name">
+                                        <input type="text" class="form-control" id="name" placeholder="Your Name" required>
                                         <label for="name">Your Name</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="email" class="form-control" id="email" placeholder="Your Email">
+                                        <input type="email" class="form-control" id="email" placeholder="Your Email" required>
                                         <label for="email">Your Email</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="address" class="form-control" id="address"
-                                            placeholder="Your Address" />
+                                        <input type="address" class="form-control" id="address" placeholder="Your Address" required>
                                         <label for="address">Your Address</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="number"
-                                            placeholder="Phone Number" />
+                                        <input type="text" class="form-control" id="number" placeholder="Phone Number" required>
                                         <label for="text">Phone Number</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="number" placeholder="Bank Account Number" required>
+                                        <label for="text">Your Bank Account Number</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -204,7 +208,8 @@
                                     <p class="mb-2 text-light fw-normal" id="cart-info">${{total}}</p>
                                 </div>
                                 <div class="col-12">
-                                    <a href="{%url 'pay'%}" class="btn btn-primary w-100 py-3" type="submit">Pay</a>
+                                    {% comment %} <a href="{%url 'pay'%}" class="btn btn-primary w-100 py-3" type="submit">Pay</a> {% endcomment %}
+                                    <input class="btn btn-primary w-100 py-3 col-12" type="submit" value="Pay" style="width: 100%" id="pay" action="pay">
                                 </div>
                             </div>
                         </form>

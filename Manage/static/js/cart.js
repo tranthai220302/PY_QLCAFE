@@ -1,17 +1,23 @@
-console.log("heloo")
 // Đăng ký sự kiện nhấn nút "Thêm vào giỏ hàng"
 var addBtns = document.querySelectorAll('.update-cart');
 addBtns.forEach(function (btn) {
     btn.addEventListener('click', function () {
         var id = this.dataset.id;
         var action = this.dataset.action;
+        var name = this.dataset.name;
+        console.log(name);
         console.log('Dish ID: ' + id + ', Action: ' + action);
         console.log("user", user)
         if (user === "AnonymousUser") {
             window.location.href = "formlogin"
         }
         else {
-            console.log("1")
+            if(action == "add") {
+                alert("Đã thêm " + name + " vào giỏ hàng!")
+            }
+            else {
+                alert("Đã xóa " + name + " khỏi giỏ hàng!")
+            }
             updatecart(id, action)
         }
     });
