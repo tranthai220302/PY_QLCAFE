@@ -110,7 +110,7 @@
                 <div class="col-md-6 bg-dark  align-items-center"
                     style="width: 30%;background-color: white !important;">
                     <div class="p-5 wow fadeInUp" data-wow-delay="0.2s">
-                        <h5 class="section-title ff-secondary text-start text-primary fw-normal">Reservation</h5>
+                        <h5 class="section-title ff-secondary text-start text-primary fw-normal">About me</h5>
                         <div style="display: flex;">
                             <div class="d-flex flex-row align-items-center">
                                 <div style="padding: 15px 0px;">
@@ -182,11 +182,33 @@
 
                 <div class="col-md-6 bg-dark d-flex align-items-center"
                     style="width: 70%;;background-color: white !important;">
-                    <h1>{{ request.user.first_name }}</h1>
-                    <h1>{{ request.user.last_name }}</h1>
-                    <h1>{{ request.user.email }}</h1>
-                    <h1>{{ request.user.customer_set.first.address }}</h1>
-                    <h1>{{ request.user.customer_set.first.number_phone }}</h1>
+                    <div class="p-5 wow fadeInUp" data-wow-delay="0.2s">
+                        <h5 class="section-title ff-secondary text-start text-primary fw-normal"><i class="fas fa-user"
+                                style="padding-left: 4px;"></i></h5>
+                        <h1 class="text-white mb-4" style="color: rgba(0,0,0,.87)!important;">My Account</h1>
+                        <table class="table">
+                            <tr>
+                                <th>First Name</th>
+                                <td>{{ request.user.first_name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Last Name</th>
+                                <td>{{ request.user.last_name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>{{ request.user.email }}</td>
+                            </tr>
+                            <tr>
+                                <th>Address</th>
+                                <td>{{ request.user.customer_set.first.address }}</td>
+                            </tr>
+                            <tr>
+                                <th>Phone Number</th>
+                                <td>{{ request.user.customer_set.first.phone_number }}</td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

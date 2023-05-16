@@ -21,17 +21,7 @@ urlpatterns = [
     path('purchaseorder', views.purchaseorder, name="purchaseorder"),
     path('myaccount', views.myaccount, name="myaccount"),
     path('delete<int:id>',views.delete, name="delete"),
-
-
-
-
-
-
-
-
-
-
-
+    path('myaccountNV', views.myaccountNV, name="myaccountNV"),
     path('home/', views.home, name='home'),
     path('manage_menu<int:id>/<int:id_page>',
          views.manage_menu, name='manage_menu'),

@@ -71,32 +71,22 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0 pe-4">
-                        <a href="{% url 'Home_page' %}" class="nav-item nav-link">Home</a>
-                        <a href="{% url 'service' %}" class="nav-item nav-link">Service</a>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Management</a>
                             <div class="dropdown-menu m-0">
-                                <a href="{% url 'about' %}" class="dropdown-item">About Us</a>
-                                <a href="{% url 'team' %}" class="dropdown-item">Our Team</a>
-                                <a href="{% url 'testimonial' %}" class="dropdown-item">Testimonial</a>
-                                <a href="{% url 'contact' %}" class="dropdown-item">Contact</a>
-                            </div>
-                        </div>
-                        <a href="{% url 'menu' %}" class="nav-item nav-link">Menu</a>
-                        <a href="{% url 'cart' %}" class="nav-item nav-link">Cart<i class="fas fa-cart-plus"
-                                style="padding-left: 4px;"></i></a>
-                        <a href="{% url 'formlogin' %}" id="login-btn" class="nav-item nav-link">Login</a>
-                        <div class="nav-item dropdown">
-                            <a href="{%url 'myaccount'%}" class="nav-link dropdown-toggle  active" id="logout-btn"
-                                data-bs-toggle="dropdown">{{request.user.username}}</a>
-                            <div class="dropdown-menu m-0">
-                                <a href="{%url 'myaccount'%}" class="dropdown-item">My Account</a>
-                                <a href="{%url 'purchaseorder'%}" class="dropdown-item">Purchase Order</a>
-                                <a href="{%url 'my_logout'%}" class="dropdown-item">Logout</a>
+                                <a href="{% url 'cartnhanvien' %}" class="dropdown-item">Order</a>
+                                <a href="{% url 'home' %}" class="dropdown-item">Menu</a>
                             </div>
                         </div>
                     </div>
-
+                    <a href="{% url 'my_login' %}" id="login-btn" class="nav-item nav-link">Login</a>
+                    <div class="nav-item dropdown" id="logout-btn">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+                            style="text-transform: uppercase; color: #FEA116;">{{request.user.username}}</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="{% url 'myaccountNV'%}" class="dropdown-item">My Account</a>
+                            <a href="{%url 'my_logout'%}" class="dropdown-item">Logout</a>
+                        </div>
                 </div>
             </nav>
         </div>
@@ -114,13 +104,13 @@
                         <div style="display: flex;">
                             <div class="d-flex flex-row align-items-center">
                                 <div style="padding: 15px 0px;">
-                                    <img src="{% static customer.image %}" class="img-fluid rounded-3"
-                                        alt="Shopping item"
+                                    <img src="{% static request.user.customer_set.first.image %}"
+                                        class="img-fluid rounded-3" alt="Shopping item"
                                         style="height: 65px;width: 65px;border-radius: 50%!important;border: 0.2px solid black;">
 
                                 </div>
                                 <div class="ms-3">
-                                    <h5>{{ customer.customer.username }}</h5>
+                                    <h5>{{request.user.username}}</h5>
                                 </div>
                             </div>
                         </div>
@@ -134,21 +124,9 @@
                                                 style="width: 20px;height: 20px;">
                                         </div>
                                         <div>
-                                            <a href="{% url 'myaccount'%}" class="nav-item nav-link"
+                                            <a href="{% url 'myaccountNV'%}" class="nav-item nav-link"
                                                 style="font: size 1.25rem!important;">My Account</a>
                                         </div>
-
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-floating" style="display: flex; align-items: center !important;">
-                                        <div class="bfikuD"><img
-                                                src="https://down-vn.img.susercontent.com/file/f0049e9df4e536bc3e7f140d071e9078"
-                                                style="width: 20px;height: 20px;">
-
-                                        </div>
-                                        <div><a href="{% url 'purchaseorder'%}" class="nav-item nav-link"
-                                                style="font: size 1.25rem!important;">Purchase Order</a></div>
 
                                     </div>
                                 </div>
@@ -184,68 +162,34 @@
                     style="width: 70%;;background-color: white !important;">
                     <div class="p-5 wow fadeInUp" data-wow-delay="0.2s">
                         <h5 class="section-title ff-secondary text-start text-primary fw-normal"><i
-                                class="fas fa-cart-plus" style="padding-left: 4px;"></i></h5>
-                        <h1 class="text-white mb-4" style="color: rgba(0,0,0,.87)!important;">Purchase Order</h1>
-                        <div class="row g-3">
-                            {% for cart in carts%}
-                            <div class="card mb-4">
-
-
-                                <div class="card mb-4"
-                                    style="border: 0px!important; border-bottom:1px solid rgba(0,0,0,0.125) !important;">
-                                    {% for order in cart.order_set.all %}
-                                    <div class="card-body" style="padding: 0px !important;">
-                                        <div class="d-flex justify-content-between">
-                                            <div class="d-flex flex-row align-items-center">
-                                                <div>
-                                                    <img src="{% static order.dish.image%}" class="img-fluid rounded-3"
-                                                        alt="Shopping item" style="width: 65px;">
-                                                </div>
-                                                <div class="ms-3">
-                                                    <h5>{{order.dish.name}}</h5>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex flex-row align-items-center">
-                                                <div style="width: 70px;">
-                                                    <h5 class="fw-normal mb-0">{{order.amount}}</h5>
-                                                </div>
-                                                <div style="width: 80px;">
-                                                    <h5 class="mb-0">${{order.dish.price}}</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {% endfor %}
-
-                                </div>
-                                <div class="card mb-4"
-                                    style="border: 0px!important; border-bottom:1px solid rgba(0,0,0,0.125) !important;">
-                                    <div class="card-body" style="padding: 0px !important;">
-                                        <div class="d-flex justify-content-between">
-                                            <div class="d-flex flex-row align-items-center">
-                                                <div class="ms-3">
-                                                    <h5>{{cart.status}}</h5>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex flex-row align-items-center">
-                                                <div style="width: 70px;">
-                                                    <h5 class="fw-normal mb-0">Total:</h5>
-                                                </div>
-                                                <div style="width: 80px;">
-                                                    <h5 class="mb-0">${{cart.total}}</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-
-                            </div>
-                            {% endfor %}
-
-                        </div>
+                                class="fas fa-user" style="padding-left: 4px;"></i></h5>
+                        <h1 class="text-white mb-4" style="color: rgba(0,0,0,.87)!important;">My Account</h1>
+                        <table class="table">
+                            <tr>
+                                <th>First Name</th>
+                                <td>{{ request.user.first_name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Last Name</th>
+                                <td>{{ request.user.last_name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>{{ request.user.email }}</td>
+                            </tr>
+                            <tr>
+                                <th>Address</th>
+                                <td>{{ request.user.employee_set.first.address }}</td>
+                            </tr>
+                            <tr>
+                                <th>Phone Number</th>
+                                <td>{{ request.user.employee_set.first.number_phone }}</td>
+                            </tr>
+                            <tr>
+                                <th>Poisition</th>
+                                <td>{{ request.user.employee_set.first.position }}</td>
+                            </tr>
+                          </table>
                     </div>
                 </div>
             </div>

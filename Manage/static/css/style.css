@@ -26,6 +26,8 @@
 }
 
 
+
+
 /*** Spinner ***/
 #spinner {
     opacity: 0;
@@ -477,3 +479,28 @@
     padding-right: 0;
     border-right: none;
 }
+
+.table {
+    display: block;
+    float: left;
+    border-collapse: collapse;
+}
+
+.table td {
+    padding-left: 100px;
+}
+
+.tableNV {
+    border-collapse: collapse;
+}
+
+.tableNV tr {
+    border-bottom: solid 1px #0F172B;
+}
+
+.btn-sc {
+    background-color: #0F172B;
+    color: #FEA116;
+}
+
+

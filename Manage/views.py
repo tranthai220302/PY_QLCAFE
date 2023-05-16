@@ -8,7 +8,6 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, decorators
 import json
 from django.http import HttpResponse, JsonResponse
-from rest_framework.decorators import api_view
 from Shop.models import Order, Dish, Cart, Customer, Menu, Employee
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 import math
@@ -35,7 +34,7 @@ def Home_page(request):
                 return render(request, 'Admin/admin.html', {'nhanvien': nhanvien})
             else:
                 if user.is_admin == True:
-                    return render(request, 'Admin/admin.html', {'nhanvien': nhanvien})
+                    return render(request, 'Admin/admin.html', {'Dish': queryset,'nhanvien': nhanvien})
                 else:
                     list_menu = Menu.objects.filter()
                     nhanvien = Employee.objects.filter(employee_id=user.id)
@@ -45,6 +44,9 @@ def Home_page(request):
 @decorators.login_required(login_url='/formlogin')
 def myaccount(request):
     return render(request, 'Customer/myaccount.html')
+
+def myaccountNV(request):
+    return render(request, 'Manage/myaccount.html')
 
 
 def formlogin(request):
@@ -72,10 +74,7 @@ def my_login(request):
                 return render(request, 'Customer/index.html', {'Dish': queryset, 'nhanvien': nhanvien})
             else:
                 if my_user.is_admin == True:
-                    print("thianug")
-                    nhanvien = Employee.objects.filter()
-                    print(nhanvien)
-                    return render(request, 'Admin/admin.html', {'nhanvien': nhanvien})
+                    return render(request, 'Admin/admin.html', {'Dish': queryset,'nhanvien': nhanvien})
                 else:
                     return render(request, 'Manage/home.html', {'list_menu': list_menu, 'my_user': user, 'nhanvien': nhanvien})
         else:
@@ -233,6 +232,7 @@ def pay(request):
     zero_objects.delete()
     cart, created = Cart.objects.get_or_create(
         customer_id=customer.id, status='ordering')
+    print("1ewewe")
     if cart.total > 0:
         print(1)
         cart.status = 'delivery'
