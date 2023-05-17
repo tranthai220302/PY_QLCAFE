@@ -20,6 +20,10 @@ class Customer(models.Model):
     def __str__(self):
         return self.customer.first_name + " " + self.customer.last_name
 
+    def delete(self, *args, **kwargs):
+        self.customer.delete()
+        super().delete(*args, **kwargs)
+
 
 class Employee(models.Model):
     employee = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -39,4 +39,5 @@ urlpatterns = [
 
     path('success_order<int:id>', views.success_order, name='success_order'),
     path('cartnhanvien', views.listOrder, name='cartnhanvien'),
+    path('manage_Employee', views.manage_Employee, name='manage_Employee'),
 ]

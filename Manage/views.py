@@ -31,14 +31,12 @@ def Home_page(request):
             return render(request, 'Customer/index.html', {'Dish': queryset, 'nhanvien': nhanvien})
         else:
             if user.is_admin == True:
-                return render(request, 'Admin/admin.html', {'nhanvien': nhanvien})
+                listCustomer = Customer.objects.filter()
+                return render(request, 'Admin/manageEmployee.html', {'Dish': queryset, 'nhanvien': nhanvien, 'list_Customer': listCustomer})
             else:
-                if user.is_admin == True:
-                    return render(request, 'Admin/admin.html', {'Dish': queryset, 'nhanvien': nhanvien})
-                else:
-                    list_menu = Menu.objects.filter()
-                    nhanvien = Employee.objects.filter(employee_id=user.id)
-                    return render(request, 'Manage/home.html', {'list_menu': list_menu, 'my_user': user, 'nhanvien': nhanvien})
+                list_menu = Menu.objects.filter()
+                nhanvien = Employee.objects.filter(employee_id=user.id)
+                return render(request, 'Manage/home.html', {'list_menu': list_menu, 'my_user': user, 'nhanvien': nhanvien})
 
 
 @decorators.login_required(login_url='/formlogin')
@@ -75,7 +73,8 @@ def my_login(request):
                 return render(request, 'Customer/index.html', {'Dish': queryset, 'nhanvien': nhanvien})
             else:
                 if my_user.is_admin == True:
-                    return render(request, 'Admin/admin.html', {'Dish': queryset, 'nhanvien': nhanvien})
+                    listCustomer = Customer.objects.filter()
+                    return render(request, 'Admin/manageEmployee.html', {'Dish': queryset, 'nhanvien': nhanvien, 'list_Customer': listCustomer})
                 else:
                     return render(request, 'Manage/home.html', {'list_menu': list_menu, 'my_user': user, 'nhanvien': nhanvien})
         else:
@@ -83,7 +82,8 @@ def my_login(request):
                 return render(request, 'Customer/index.html', {'Dish': queryset, 'nhanvien': nhanvien})
             else:
                 if user.is_admin == True:
-                    return render(request, 'Admin/admin.html', {'nhanvien': nhanvien})
+                    listCustomer = Customer.objects.filter()
+                    return render(request, 'Admin/manageEmployee.html', {'Dish': queryset, 'nhanvien': nhanvien, 'list_Customer': listCustomer})
                 else:
                     list_menu = Menu.objects.filter()
                     nhanvien = Employee.objects.filter(employee_id=user.id)
@@ -99,7 +99,8 @@ def my_login(request):
                 return render(request, 'Customer/index.html', {'Dish': queryset})
             else:
                 if user.is_admin == True:
-                    return render(request, 'Admin/admin.html', {'nhanvien': nhanvien})
+                    listCustomer = Customer.objects.filter()
+                    return render(request, 'Admin/manageEmployee.html', {'Dish': queryset, 'nhanvien': nhanvien, 'list_Customer': listCustomer})
                 else:
                     return render(request, 'Manage/home.html', {'list_menu': list_menu, 'my_user': user, 'nhanvien': nhanvien})
 
@@ -160,44 +161,43 @@ def signupemployee(request, id=0):
         if my_user.exists():
             print('You already have')
             nhanvien = Employee.objects.filter()
-            return render(request, 'Admin/admin.html', {'nhanvien': nhanvien})
+            listCustomer = Customer.objects.filter()
+            return render(request, 'Admin/manageEmployee.html', {'nhanvien': nhanvien, 'list_Customer': listCustomer})
         if id == 0:
             User.objects.create_user(
                 username=_username, email=email, password=password, first_name=firstname, last_name=lastname, is_staff=False)
             user = authenticate(request, username=_username, password=password)
             print(user)
             Employee.objects.create(
-                employee=user, address=_address, number_phone=phone, position=posi, image=image)
+                employee=user, address=_address, number_phone=phone, position=posi, image="img/"+image)
 
             nhanvien = Employee.objects.filter()
-            return render(request, 'Admin/admin.html', {'nhanvien': nhanvien})
+            return render(request, 'Admin/manageEmployee.html', {'nhanvien': nhanvien})
         else:
+            print("FDFD")
             employee = Employee.objects.get(id=id)
             employee.address = _address
             employee.number_phone = phone
             employee.position = posi
-            employee.image = image
-            employee.employee.username = _username
             employee.employee.email = email
-            employee.employee.password = password
             employee.employee.first_name = firstname
             employee.employee.last_name = lastname
             employee.employee.save()
             employee.save()
             nhanvien = Employee.objects.filter()
-            return render(request, 'Admin/admin.html', {'nhanvien': nhanvien})
+            return render(request, 'Admin/manageEmployee.html', {'nhanvien': nhanvien})
 
     else:
         print('You already have123')
         nhanvien = Employee.objects.filter()
-        return render(request, 'Admin/admin.html', {'nhanvien': nhanvien})
+        return render(request, 'Admin/manageEmployee.html', {'nhanvien': nhanvien})
 
 
 def delete(request, id):
     employee = Employee.objects.get(id=id)
     employee.delete()
     nhanvien = Employee.objects.filter()
-    return render(request, 'Admin/admin.html', {'nhanvien': nhanvien})
+    return render(request, 'Admin/manageEmployee.html', {'nhanvien': nhanvien})
 
 
 def updatecart(request):
@@ -268,6 +268,11 @@ def pay(request):
 
 def contact(request):
     return render(request, 'Customer/contact.html')
+
+
+def manage_Employee(request):
+    nhanvien = Employee.objects.filter()
+    return render(request, 'Admin/manageEmployee.html', {'nhanvien': nhanvien})
 
 
 def menu(request):
@@ -389,7 +394,6 @@ def edit_dish(request):
 def manage_Customer(request, id_page):
     user = request.user
     my_user = User.objects.get(id=user.id)
-    nhanvien = Employee.objects.get(employee_id=user.id)
     list_Customer = Customer.objects.filter()
     num_page = math.ceil(list_Customer.count()/4)
     arr = [i+1 for i in range(num_page)]
@@ -400,13 +404,12 @@ def manage_Customer(request, id_page):
         list_Customer = paginator.page(1)
     except EmptyPage:
         list_Customer = paginator.page(paginator.num_pages)
-    return render(request, 'Manage/manageCutomer.html', {'list_Customer': list_Customer, 'num_page': arr, 'id_page': id_page, 'my_user': my_user, 'nhanvien': nhanvien})
+    return render(request, 'Admin/manageCutomer.html', {'list_Customer': list_Customer, 'num_page': arr, 'id_page': id_page})
 
 
 def delete_customer(request, id, id_page):
     user = request.user
-    my_user = User.objects.get(id=user.id)
-    nhanvien = Employee.objects.get(employee_id=user.id)
+
     customer_delete = Customer.objects.get(id=id)
     customer_delete.delete()
     list_Customer = Customer.objects.filter()
@@ -419,7 +422,7 @@ def delete_customer(request, id, id_page):
         list_Customer = paginator.page(1)
     except EmptyPage:
         list_Customer = paginator.page(paginator.num_pages)
-    return render(request, 'Manage/manageCutomer.html', {'list_Customer': list_Customer, 'num_page': arr, 'id_page': id_page, 'my_user': my_user, 'nhanvien': nhanvien})
+    return render(request, 'Admin/manageCutomer.html', {'list_Customer': list_Customer, 'num_page': arr, 'id_page': id_page})
 
 
 def success_order(request, id):
