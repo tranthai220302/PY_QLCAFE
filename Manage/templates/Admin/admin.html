@@ -10,6 +10,26 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" href=' {% static "vendor/bootstrap/css/bootstrap.min.css"  %}'>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" href='{% static "fonts/font-awesome-4.7.0/css/font-awesome.min.css"  %}'>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" href=' {% static "fonts/Linearicons-Free-v1.0.0/icon-font.min.css"  %}'>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" href='{% static "vendor/animate/animate.css" %}'>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" href=' {% static "vendor/css-hamburgers/hamburgers.min.css"  %}'>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" href='{% static "vendor/animsition/css/animsition.min.css"  %}'>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" href=' {% static "vendor/select2/select2.min.css"  %}'>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" href='{% static "vendor/daterangepicker/daterangepicker.css" %}'>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" href='{% static "css/util.css" %}'>
+    <link rel="stylesheet" href='{% static "css/main.css" %}'>
+    <!--===============================================================================================-->
 
     <!-- Favicon -->
     <link href='{% static "img/favicon.ico"%}' rel="icon">
@@ -131,30 +151,75 @@
 
     <!-- Modal -->
     <div id="myModal" class="modal">
-        <div class="modal-content">
+
+        <form action="{% url 'signupemployee' 3 %}" method="post" class="login100-form validate-form" id="form2"
+            style="display:none; padding: 10px;">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h2>Thêm nhân viên</h2>
-            <form id="addEmployeeForm">
-                <!-- Các trường nhập liệu cho việc thêm nhân viên -->
-                <label for="username">Tài khoản:</label>
-                <input type="text" id="username" name="username">
+            {% csrf_token %}
+            <span class="login100-form-title p-b-43" style="padding: 30px;">
+                Sign Up
+            </span>
+            <div style="display:flex;">
+                <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="First Name is required"
+                    style="margin-right: 5px;">
+                    <input class="input100" type="text" name="firstname">
+                    <span class="focus-input100"></span>
+                    <span class="label-input100">First Name</span>
+                </div>
+                <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="Last Name is required">
+                    <input class="input100" type="text" name="lastname">
+                    <span class="focus-input100"></span>
+                    <span class="label-input100">Last Name</span>
+                </div>
+            </div>
 
-                <label for="address">Địa chỉ:</label>
-                <input type="text" id="address" name="address">
+            <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="Username is required">
+                <input class=" input100" type="text" name="username">
+                <span class="focus-input100"></span>
+                <span class="label-input100">Username</span>
+            </div>
+            <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="Gmail is required">
+                <input class="input100" type="text" name="email">
+                <span class="focus-input100"></span>
+                <span class="label-input100">Email</span>
+            </div>
 
-                <label for="phone">Số điện thoại:</label>
-                <input type="text" id="phone" name="phone">
-
-                <label for="position">Chức vụ:</label>
-                <select id="position" name="position">
-                    <option value="Phục Vụ">Phục Vụ</option>
-                    <option value="Bưng Bê">Bưng Bê</option>
-                    <option value="Pha Chế">Pha Chế</option>
+            <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="Password is required">
+                <input class="input100" type="password" name="password">
+                <span class="focus-input100"></span>
+                <span class="label-input100">Password</span>
+            </div>
+            <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="Address is required">
+                <input class="input100" type="text" name="Address">
+                <span class="focus-input100"></span>
+                <span class="label-input100">Address</span>
+            </div>
+            <div class="wrap-input100 validate-input" style="height: 50px;" data-validate="Phone Number is required">
+                <input class="input100" type="text" name="phone">
+                <span class="focus-input100"></span>
+                <span class="label-input100">Phone Number</span>
+            </div>
+            <div class="wrap-input100 validate-input" style="height: 50px;">
+                <select name="position">
+                    <option class="label-input100" value="Phục Vụ">Phục Vụ</option>
+                    <option class="label-input100" value="Bưng Bê">Bưng Bê</option>
+                    <option class="label-input100" value="Pha Chế">Pha Chế</option>
+                    <!-- Thêm các option khác tùy theo nhu cầu của bạn -->
                 </select>
+            </div>
 
-                <button type="submit">Thêm</button>
-            </form>
-        </div>
+            <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="Phone Number is required">
+                <input class="input100" type="file" name="image">
+            </div>
+
+
+
+            <div class="container-login100-form-btn">
+                <button type="submit" class="login100-form-btn">
+                    Sign Up
+                </button>
+            </div>
+        </form>
     </div>
 
     <a href="{% url 'my_logout' %}" class="dropdown-item">Logout</a>
@@ -191,7 +256,9 @@
         // Mở modal
         function openModal() {
             var modal = document.getElementById("myModal");
+            var form = document.getElementById("form2");
             modal.style.display = "block";
+            form.style.display = "block"; // Thêm dòng này để hiển thị form
         }
 
         // Đóng modal
@@ -200,16 +267,23 @@
             modal.style.display = "none";
         }
 
-        // Xử lý sự kiện submit form
-        document.getElementById("addEmployeeForm").addEventListener("submit", function (event) {
-            event.preventDefault();
-            // Thực hiện các xử lý lưu thông tin nhân viên
-            // ...
-            // Sau khi xử lý xong, đóng modal
-            closeModal();
-        });
-
     </script>
+    <!--===============================================================================================-->
+    <script src='{% static "vendor/jquery/jquery-3.2.1.min.js"%}'></script>
+    <!--===============================================================================================-->
+    <script src='{% static "vendor/animsition/js/animsition.min.js"%}'></script>
+    <!--===============================================================================================-->
+    <script src='{% static "vendor/bootstrap/js/popper.js"%}'></script>
+    <script src='{% static "vendor/bootstrap/js/bootstrap.min.js"%}'></script>
+    <!--===============================================================================================-->
+    <script src='{% static "vendor/select2/select2.min.js"%}'></script>
+    <!--===============================================================================================-->
+    <script src='{% static "vendor/daterangepicker/moment.min.js"%}'></script>
+    <script src='{% static "vendor/daterangepicker/daterangepicker.js"%}'></script>
+    <!--===============================================================================================-->
+    <script src='{% static "vendor/countdowntime/countdowntime.js"%}'></script>
+    <!--===============================================================================================-->
+    <script src='{% static "js/login.js"%}'></script>
 </body>
 
 </html>

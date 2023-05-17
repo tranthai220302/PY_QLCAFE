@@ -34,7 +34,7 @@ def Home_page(request):
                 return render(request, 'Admin/admin.html', {'nhanvien': nhanvien})
             else:
                 if user.is_admin == True:
-                    return render(request, 'Admin/admin.html', {'Dish': queryset,'nhanvien': nhanvien})
+                    return render(request, 'Admin/admin.html', {'Dish': queryset, 'nhanvien': nhanvien})
                 else:
                     list_menu = Menu.objects.filter()
                     nhanvien = Employee.objects.filter(employee_id=user.id)
@@ -44,6 +44,7 @@ def Home_page(request):
 @decorators.login_required(login_url='/formlogin')
 def myaccount(request):
     return render(request, 'Customer/myaccount.html')
+
 
 def myaccountNV(request):
     return render(request, 'Manage/myaccount.html')
@@ -74,7 +75,7 @@ def my_login(request):
                 return render(request, 'Customer/index.html', {'Dish': queryset, 'nhanvien': nhanvien})
             else:
                 if my_user.is_admin == True:
-                    return render(request, 'Admin/admin.html', {'Dish': queryset,'nhanvien': nhanvien})
+                    return render(request, 'Admin/admin.html', {'Dish': queryset, 'nhanvien': nhanvien})
                 else:
                     return render(request, 'Manage/home.html', {'list_menu': list_menu, 'my_user': user, 'nhanvien': nhanvien})
         else:
@@ -144,7 +145,7 @@ def signup(request):
         return render(request, 'Customer/menu.html')
 
 
-def signupemployee(request):
+def signupemployee(request, id=0):
     if request.method == 'POST':
         firstname = request.POST.get('firstname')
         lastname = request.POST.get('lastname')
@@ -153,18 +154,42 @@ def signupemployee(request):
         email = request.POST.get('email')
         _address = request.POST.get('Address')
         phone = request.POST.get('phone')
+        posi = request.POST.get('position')
+        image = request.POST.get('image')
         my_user = User.objects.filter(username=_username)
         if my_user.exists():
-            return render(request, 'Customer/formlogin.html', {"form": "form1"})
-        User.objects.create_user(
-            username=_username, email=email, password=password, first_name=firstname, last_name=lastname, is_staff=False)
-        user = authenticate(request, username=_username, password=password)
-        login(request, user)
-        Employee.objects.create(
-            employee=user, address=_address, number_phone=phone)
-        nhanvien = Employee.objects.filter()
-        return render(request, 'Admin/admin.html', {'nhanvien': nhanvien})
+            print('You already have')
+            nhanvien = Employee.objects.filter()
+            return render(request, 'Admin/admin.html', {'nhanvien': nhanvien})
+        if id == 0:
+            User.objects.create_user(
+                username=_username, email=email, password=password, first_name=firstname, last_name=lastname, is_staff=False)
+            user = authenticate(request, username=_username, password=password)
+            print(user)
+            Employee.objects.create(
+                employee=user, address=_address, number_phone=phone, position=posi, image=image)
+
+            nhanvien = Employee.objects.filter()
+            return render(request, 'Admin/admin.html', {'nhanvien': nhanvien})
+        else:
+            employee = Employee.objects.get(id=id)
+            employee.address = _address
+            employee.number_phone = phone
+            employee.position = posi
+            employee.image = image
+            employee.employee.username = _username
+            employee.employee.email = email
+            employee.employee.password = password
+            employee.employee.first_name = firstname
+            employee.employee.last_name = lastname
+            employee.employee.save()
+            employee.save()
+            nhanvien = Employee.objects.filter()
+            return render(request, 'Admin/admin.html', {'nhanvien': nhanvien})
+
     else:
+        print('You already have123')
+        nhanvien = Employee.objects.filter()
         return render(request, 'Admin/admin.html', {'nhanvien': nhanvien})
 
 
