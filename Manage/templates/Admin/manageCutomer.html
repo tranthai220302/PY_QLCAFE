@@ -127,6 +127,71 @@
 </style>
 
 <body>
+  <div id="myModal" class="modal" style="margin-top: 20px;">
+    <form action="{% url 'signupcustomer' id_page%}" method="post" class="login100-form validate-form form-insert"
+      id="form2" style="display:none; padding: 10px; margin: auto; ">
+      {% csrf_token %}
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title form-title" id="offcanvasExampleLabel">INSERT Customer</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"
+          onclick="closeModal()"></button>
+      </div>
+      <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="First Name is required">
+        <input class="w-100" type="text" name="firstname" placeholder="First Name" required>
+      </div>
+      <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="Last Name is required">
+        <input class="w-100" type="text" name="lastname" placeholder="Last Name" required>
+      </div>
+      <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="Username is required">
+        <input class="w-100" type="text" name="username" placeholder="Username" required>
+      </div>
+      <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="Gmail is required">
+        <input class="w-100" type="email" name="email" placeholder="Email" required>
+      </div>
+
+      <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="Password is required">
+        <input class="w-100" type="password" name="password" placeholder="Password" required>
+      </div>
+      <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="Address is required">
+        <input class="w-100" type="text" name="Address" placeholder="Address" required>
+      </div>
+      <div class="wrap-input100 validate-input" style="height: 50px;" data-validate="Phone Number is required">
+        <input class="w-100" type="text" name="phone" placeholder="Phone Number" required>
+      </div>
+
+      <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="Image is required">
+        <input class="input100" type="file" name="image" required>
+      </div>
+
+
+
+      <div class="container-login100-form-btn" style="text-align: center;">
+        <button type="submit" class="login100-form-btn btn-ok">
+          Insert
+        </button>
+      </div>
+      <div class="dropdown mt-3">
+        </ul>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // Mở modal
+    function openModal() {
+      var modal = document.getElementById("myModal");
+      var form = document.getElementById("form2");
+      modal.style.display = "block";
+      form.style.display = "block"; // Thêm dòng này để hiển thị form
+    }
+
+    // Đóng modal
+    function closeModal() {
+      var modal = document.getElementById("myModal");
+      modal.style.display = "none";
+    }
+
+  </script>
   <div class="container-xxl bg-white p-0">
     <!-- Spinner Start -->
     <div id="spinner"
@@ -141,36 +206,36 @@
     <!-- Navbar & Hero Start -->
     <div class="container-xxl position-relative p-0">
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
-          <a href="" class="navbar-brand p-0">
-              <h1 class="text-primary m-0"><img src='{% static "img/logo.png" %}' alt="Logo">Blissful</h1>
-          </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-              <span class="fa fa-bars"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-              <div class="navbar-nav ms-auto py-0 pe-4">
-                  <a href="{% url 'manage_Employee' %}" class="nav-item nav-link">Employee</a>
-                  <a href="{% url 'manage_Customer' id_page=1 %}" class="nav-item nav-link active">Customer<i class="fas fa-cart-plus" style="padding-left: 4px;"></i></a>
-                  <a href="{% url 'formlogin' %}" id="login-btn" class="nav-item nav-link">Login</a>
-                  <div class="nav-item dropdown" id="logout-btn">
-                      <a href="#" class="nav-link dropdown-toggle"
-                          data-bs-toggle="dropdown">{{request.user.username}}</a>
-                      <div class="dropdown-menu m-0">
-                          <a href="{%url 'my_logout'%}" class="dropdown-item">Logout</a>
-                      </div>
-                  </div>
+        <a href="" class="navbar-brand p-0">
+          <h1 class="text-primary m-0"><img src='{% static "img/logo.png" %}' alt="Logo">Blissful</h1>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+          <span class="fa fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <div class="navbar-nav ms-auto py-0 pe-4">
+            <a href="{% url 'manage_Employee' %}" class="nav-item nav-link">Employee</a>
+            <a href="{% url 'manage_Customer' id_page=1 %}" class="nav-item nav-link active">Customer<i
+                class="fas fa-cart-plus" style="padding-left: 4px;"></i></a>
+            <a href="{% url 'formlogin' %}" id="login-btn" class="nav-item nav-link">Login</a>
+            <div class="nav-item dropdown" id="logout-btn">
+              <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{request.user.username}}</a>
+              <div class="dropdown-menu m-0">
+                <a href="{%url 'my_logout'%}" class="dropdown-item">Logout</a>
               </div>
+            </div>
           </div>
+        </div>
       </nav>
 
 
       <div class="container-xxl py-5 bg-dark hero-header mb-5">
-          <div class="container text-center my-5 pt-5 pb-4">
-              <h1 class="display-3 text-white mb-3 animated slideInDown">Customer Management</h1>
-          </div>
+        <div class="container text-center my-5 pt-5 pb-4">
+          <h1 class="display-3 text-white mb-3 animated slideInDown">Customer Management</h1>
+        </div>
       </div>
-  </div>
-  <!-- Navbar & Hero End -->
+    </div>
+    <!-- Navbar & Hero End -->
 
 
     <!-- Team Start -->
@@ -204,41 +269,57 @@
                       aria-label="Close"></button>
                   </div>
                   <div class="offcanvas-body">
-                    <div>
-                      <div class="form-group">
-                        <img class="img-fluid" src="{% static customer.image %}" alt="">
-                      </div>
-                      <div class="form-group">
+                    <form action="{% url 'signup' customer.id id_page%}" method="post">
+                      {% csrf_token %}
+                      <div>
+                        <div class="form-group">
+                          <img class="img-fluid" src="{% static customer.image %}" alt="">
+                        </div>
+                        <div class="form-group">
 
-                        <fieldset>
-                          <label class="form-label mt-4" for="readOnlyInput">Full Name</label>
-                          <input class="form-control" id="readOnlyInput" type="text"
-                            placeholder="{{customer.customer.first_name}} {{customer.customer.last_name}}" readonly="">
-                        </fieldset>
-                      </div>
-                      <div class="form-group">
-                        <fieldset>
-                          <label class="form-label mt-4" for="readOnlyInput">Address</label>
-                          <input class="form-control" id="readOnlyInput" type="text" placeholder="{{customer.address}}"
-                            readonly="">
-                        </fieldset>
-                      </div>
-                      <div class="form-group">
-                        <fieldset>
-                          <label class="form-label mt-4" for="readOnlyInput">Number</label>
-                          <input class="form-control" id="readOnlyInput" type="text"
-                            placeholder="{{customer.number_phone}}" readonly="">
-                        </fieldset>
-                      </div>
-                      <div class="form-group">
-                        <fieldset>
-                          <label class="form-label mt-4" for="readOnlyInput">Chức vụ</label>
-                          <input class="form-control" id="readOnlyInput" type="text" placeholder="Khách hàng"
-                            readonly="">
-                        </fieldset>
-                      </div>
+                          <fieldset class="text-left">
+                            <label class="form-label mt-4" for="readOnlyInput">First
+                              Name</label>
+                            <input class="form-control" id="readOnlyInput" type="text"
+                              value="{{customer.customer.first_name}}" name='firstname'>
+                          </fieldset>
+                        </div>
+                        <div class="form-group">
 
-                    </div>
+                          <fieldset class="text-left">
+                            <label class="form-label mt-4" for="readOnlyInput">Last
+                              Name</label>
+                            <input class="form-control" id="readOnlyInput" type="text"
+                              value="{{customer.customer.last_name}}" name='lastname'>
+                          </fieldset>
+                        </div>
+                        <div class="form-group">
+                          <fieldset class="text-left">
+                            <label class="form-label mt-4" for="readOnlyInput">Address</label>
+                            <input class="form-control" id="readOnlyInput" type="text" value="{{customer.address}}"
+                              name='Address'>
+                          </fieldset>
+                        </div>
+                        <div class="form-group">
+                          <fieldset class="text-left">
+                            <label class="form-label mt-4" for="readOnlyInput">Number</label>
+                            <input class="form-control" id="readOnlyInput" type="text" value="{{customer.number_phone}}"
+                              name='phone'>
+                          </fieldset>
+                        </div>
+                        <div class="form-group">
+                          <fieldset class="text-left">
+                            <label class="form-label mt-4" for="readOnlyInput">Email
+                            </label>
+                            <input class="form-control" id="readOnlyInput" type="text"
+                              value="{{customer.customer.email}}" name='email'>
+                          </fieldset>
+                        </div>
+
+                        <button class="btn btn-info btn-ok">OK</button>
+
+                      </div>
+                    </form>
                     <div class="dropdown mt-3">
                       </ul>
                     </div>
@@ -248,6 +329,11 @@
             </div>
           </div>
           {% endfor %}
+          <div style="text-align: center;margin-top: 20px">
+            <button class="btn-sc">
+              <a href="#" class="edit-link" onclick="openModal()">Insert</a>
+            </button>
+          </div>
           <div class="pagination">
             {% for i in num_page %}
             {% if i == id_page %}
@@ -260,6 +346,8 @@
         </div>
       </div>
       <!-- Team End -->
+
+
 
 
       <!-- Footer Start -->

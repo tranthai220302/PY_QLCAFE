@@ -1,6 +1,8 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+<script>
+</script>
 
 <head>
     <meta charset="utf-8">
@@ -127,36 +129,37 @@
 </style>
 
 <body>
-    <div id="myModal" class="modal" style="margin-top: 20px;" >
-        <form action="{% url 'signupemployee' %}" method="post" class="login100-form validate-form form-insert" id="form2"
-            style="display:none; padding: 10px; margin: auto; ">
+    <div id="myModal" class="modal" style="margin-top: 20px;">
+        <form action="{% url 'signupemployee' %}" method="post" class="login100-form validate-form form-insert"
+            id="form2" style="display:none; padding: 10px; margin: auto; ">
             {% csrf_token %}
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title form-title" id="offcanvasExampleLabel">INSERT EMPLOYEE</h5>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                    aria-label="Close" onclick="closeModal()"></button>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"
+                    onclick="closeModal()"></button>
             </div>
             <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="First Name is required">
-                <input class="w-100" type="text" name="firstname" placeholder="First Name" required>                                        
+                <input class="w-100" type="text" name="firstname" placeholder="First Name" required>
             </div>
             <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="Last Name is required">
-                <input class="w-100" type="text" name="lastname" placeholder="Last Name" required> 
-            </div>
-            <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="Gmail is required">
-                <input class="w-100" type="email" name="email" placeholder="Email" required> 
+
+                <input class="w-100" type="text" name="lastname" placeholder="Last Name" required>
             </div>
             <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="Username is required">
-                <input class="w-100" type="text" name="username" placeholder="Username" required> 
+                <input class="w-100" type="text" name="username" placeholder="Username" required>
+            </div>
+            <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="Gmail is required">
+                <input class="w-100" type="email" name="email" placeholder="Email" required>
             </div>
 
             <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="Password is required">
-                <input class="w-100" type="password" name="password" placeholder="Password" required> 
+                <input class="w-100" type="password" name="password" placeholder="Password" required>
             </div>
             <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="Address is required">
-                <input class="w-100" type="text" name="address" placeholder="Address" required> 
+                <input class="w-100" type="text" name="Address" placeholder="Address" required>
             </div>
             <div class="wrap-input100 validate-input" style="height: 50px;" data-validate="Phone Number is required">
-                <input class="w-100" type="text" name="phonenumber" placeholder="Phone Number" required> 
+                <input class="w-100" type="text" name="phone" placeholder="Phone Number" required>
             </div>
             <div class="wrap-input100 validate-input" style="height: 50px;">
                 <select name="position">
@@ -180,11 +183,11 @@
                 </button>
             </div>
             <div class="dropdown mt-3">
-            </ul>
+                </ul>
             </div>
-        </form> 
+        </form>
     </div>
-    
+
     <script>
         // Mở modal
         function openModal() {
@@ -223,7 +226,8 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0 pe-4">
                         <a href="{% url 'manage_Employee' %}" class="nav-item nav-link active">Employee</a>
-                        <a href="{% url 'manage_Customer' id_page=1 %}" class="nav-item nav-link">Customer<i class="fas fa-cart-plus" style="padding-left: 4px;"></i></a>
+                        <a href="{% url 'manage_Customer' id_page=1 %}" class="nav-item nav-link">Customer<i
+                                class="fas fa-cart-plus" style="padding-left: 4px;"></i></a>
                         <a href="{% url 'formlogin' %}" id="login-btn" class="nav-item nav-link">Login</a>
                         <div class="nav-item dropdown" id="logout-btn">
                             <a href="#" class="nav-link dropdown-toggle"
@@ -271,7 +275,8 @@
                                 <div class="offcanvas offcanvas-start" tabindex="-1"
                                     id="offcanvasExample{{customer.id}}" aria-labelledby="offcanvasExampleLabel">
                                     <div class="offcanvas-header">
-                                        <h5 class="offcanvas-title form-title" id="offcanvasExampleLabel">EMPLOYEE DETAIL</h5>
+                                        <h5 class="offcanvas-title form-title" id="offcanvasExampleLabel">EMPLOYEE
+                                            DETAIL</h5>
                                         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                                             aria-label="Close"></button>
                                     </div>
@@ -357,7 +362,7 @@
                 </div>
             </div>
             <!-- Team End -->
-            
+
             <div style="text-align: center;">
                 <button class="btn-sc">
                     <a href="#" class="edit-link" onclick="openModal()">Insert</a>

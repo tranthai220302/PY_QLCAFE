@@ -88,7 +88,7 @@
 					</div>
 
 				</form>
-				<form action="{% url 'signup' %}" method="post" class="login100-form validate-form" id="form2"
+				<form action="{% url 'signup' 0 0%}" method="post" class="login100-form validate-form" id="form2"
 					style="display:none; padding: 10px;">
 					{% csrf_token %}
 					<span class="login100-form-title p-b-43" style="padding: 30px;">
@@ -205,7 +205,7 @@
 					</div>
 
 				</form>
-				<form action="{% url 'signup' %}" method="post" class="login100-form validate-form" id="form2"
+				<form action="{% url 'signup' 0 0 %}" method="post" class="login100-form validate-form" id="form2"
 					style="padding: 30px;">
 					{% csrf_token %}
 					<span class="login100-form-title p-b-43">
