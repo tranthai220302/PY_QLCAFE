@@ -503,4 +503,29 @@
     color: #FEA116;
 }
 
+.form-title {
+    text-align: center;
+    color: #FEA116;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.btn-ok {
+    background-color: #0F172B;
+    color: #FEA116;
+    margin-top: 10px;
+}
+
+.btn-ok:hover {
+    background-color: #343a4a;
+    color: #f3cc92;
+}
+
+.form-insert {
+    background-color: #F1F8FF;
+    WIDTH: 30%;
+}
+
 

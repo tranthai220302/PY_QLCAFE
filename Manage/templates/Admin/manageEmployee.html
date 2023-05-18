@@ -127,54 +127,36 @@
 </style>
 
 <body>
-    <div id="myModal" class="modal">
-
-        <form action="{% url 'signupemployee' %}" method="post" class="login100-form validate-form" id="form2"
-            style="display:none; padding: 10px;">
-            <span class="close" onclick="closeModal()">&times;</span>
+    <div id="myModal" class="modal" style="margin-top: 20px;" >
+        <form action="{% url 'signupemployee' %}" method="post" class="login100-form validate-form form-insert" id="form2"
+            style="display:none; padding: 10px; margin: auto; ">
             {% csrf_token %}
-            <span class="login100-form-title p-b-43" style="padding: 30px;">
-                Sign Up
-            </span>
-            <div style="display:flex;">
-                <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="First Name is required"
-                    style="margin-right: 5px;">
-                    <input class="input100" type="text" name="firstname">
-                    <span class="focus-input100"></span>
-                    <span class="label-input100">First Name</span>
-                </div>
-                <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="Last Name is required">
-                    <input class="input100" type="text" name="lastname">
-                    <span class="focus-input100"></span>
-                    <span class="label-input100">Last Name</span>
-                </div>
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title form-title" id="offcanvasExampleLabel">INSERT EMPLOYEE</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                    aria-label="Close" onclick="closeModal()"></button>
             </div>
-
+            <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="First Name is required">
+                <input class="w-100" type="text" name="firstname" placeholder="First Name" required>                                        
+            </div>
+            <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="Last Name is required">
+                <input class="w-100" type="text" name="firstname" placeholder="Last Name" required> 
+            </div>
             <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="Username is required">
-                <input class=" input100" type="text" name="username">
-                <span class="focus-input100"></span>
-                <span class="label-input100">Username</span>
+                <input class="w-100" type="text" name="firstname" placeholder="Username" required> 
             </div>
             <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="Gmail is required">
-                <input class="input100" type="text" name="email">
-                <span class="focus-input100"></span>
-                <span class="label-input100">Email</span>
+                <input class="w-100" type="email" name="firstname" placeholder="Email" required> 
             </div>
 
             <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="Password is required">
-                <input class="input100" type="password" name="password">
-                <span class="focus-input100"></span>
-                <span class="label-input100">Password</span>
+                <input class="w-100" type="password" name="firstname" placeholder="Password" required> 
             </div>
             <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="Address is required">
-                <input class="input100" type="text" name="Address">
-                <span class="focus-input100"></span>
-                <span class="label-input100">Address</span>
+                <input class="w-100" type="text" name="firstname" placeholder="Address" required> 
             </div>
             <div class="wrap-input100 validate-input" style="height: 50px;" data-validate="Phone Number is required">
-                <input class="input100" type="text" name="phone">
-                <span class="focus-input100"></span>
-                <span class="label-input100">Phone Number</span>
+                <input class="w-100" type="text" name="firstname" placeholder="Phone Number" required> 
             </div>
             <div class="wrap-input100 validate-input" style="height: 50px;">
                 <select name="position">
@@ -185,19 +167,23 @@
                 </select>
             </div>
 
-            <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="Phone Number is required">
-                <input class="input100" type="file" name="image">
+            <div class="wrap-input100 validate-input" style="height: 65px;" data-validate="Image is required">
+                <input class="input100" type="file" name="image" required>
             </div>
 
 
 
-            <div class="container-login100-form-btn">
-                <button type="submit" class="login100-form-btn">
-                    Sign Up
+            <div class="container-login100-form-btn" style="text-align: center;">
+                <button type="submit" class="login100-form-btn btn-ok">
+                    Insert
                 </button>
             </div>
-        </form>
+            <div class="dropdown mt-3">
+            </ul>
+            </div>
+        </form> 
     </div>
+    
     <script>
         // Mở modal
         function openModal() {
@@ -214,7 +200,6 @@
         }
 
     </script>
-    <a href="#" class="edit-link" onclick="openModal()">Sửa</a>
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
         <div id="spinner"
@@ -224,7 +209,6 @@
             </div>
         </div>
         <!-- Spinner End -->
-
 
         <!-- Navbar & Hero Start -->
         <div class="container-xxl position-relative p-0">
@@ -238,22 +222,25 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0 pe-4">
                         <a href="{% url 'manage_Employee' %}" class="nav-item nav-link active">Employee</a>
-                        <a href="{% url 'manage_Customer' id_page=1 %}" class="nav-item nav-link">Customer<i
-                                class="fas fa-cart-plus" style="padding-left: 4px;"></i></a>
-                    </div>
-                    <a href="{% url 'my_login' %}" id="login-btn" class="nav-item nav-link">Login</a>
-                    <div class="nav-item dropdown" id="logout-btn">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
-                            style="text-transform: uppercase; color: white;">{{request.user.username}}</a>
-                        <div class="dropdown-menu m-0">
-                            <a href="{% url 'myaccount'%}" class="dropdown-item">My Account</a>
-                            <a href="{%url 'purchaseorder'%}" class="dropdown-item">Purchase Order</a>
-                            <a href="{%url 'my_logout'%}" class="dropdown-item">Logout</a>
+                        <a href="{% url 'manage_Customer' id_page=1 %}" class="nav-item nav-link">Customer<i class="fas fa-cart-plus" style="padding-left: 4px;"></i></a>
+                        <a href="{% url 'formlogin' %}" id="login-btn" class="nav-item nav-link">Login</a>
+                        <div class="nav-item dropdown" id="logout-btn">
+                            <a href="#" class="nav-link dropdown-toggle"
+                                data-bs-toggle="dropdown">{{request.user.username}}</a>
+                            <div class="dropdown-menu m-0">
+                                <a href="{%url 'my_logout'%}" class="dropdown-item">Logout</a>
+                            </div>
                         </div>
                     </div>
-
                 </div>
             </nav>
+
+
+            <div class="container-xxl py-5 bg-dark hero-header mb-5">
+                <div class="container text-center my-5 pt-5 pb-4">
+                    <h1 class="display-3 text-white mb-3 animated slideInDown">Employee Management</h1>
+                </div>
+            </div>
         </div>
         <!-- Navbar & Hero End -->
 
@@ -263,7 +250,6 @@
             <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                     <h5 class="section-title ff-secondary text-center text-primary fw-normal">Team Members</h5>
-                    <h1 class="mb-5">Our Professional Customer</h1>
                 </div>
                 <div class="row g-4">
                     {% for customer in nhanvien %}
@@ -273,19 +259,18 @@
                                 <img class="img-fluid" src="{% static customer.image %}" alt="">
                             </div>
                             <h5 class="mb-0">{{customer.employee.first_name}} {{customer.employee.last_name}}</h5>
-                            <small>Employee</small>
+                            <small>{{customer.position}}</small>
                             <div class="d-flex justify-content-center mt-3">
-                                <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
                                 <a class="btn btn-square btn-primary mx-1" href="{% url 'delete' customer.id %}"><i
                                         class="fa-solid fa-trash"></i></a>
                                 <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvasExample{{customer.id}}" aria-controls="offcanvasExample">
-                                    !
+                                    <i class="fas fa-user-cog"></i>
                                 </button>
                                 <div class="offcanvas offcanvas-start" tabindex="-1"
                                     id="offcanvasExample{{customer.id}}" aria-labelledby="offcanvasExampleLabel">
                                     <div class="offcanvas-header">
-                                        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+                                        <h5 class="offcanvas-title form-title" id="offcanvasExampleLabel">EMPLOYEE DETAIL</h5>
                                         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                                             aria-label="Close"></button>
                                     </div>
@@ -298,7 +283,7 @@
                                                 </div>
                                                 <div class="form-group">
 
-                                                    <fieldset>
+                                                    <fieldset class="text-left">
                                                         <label class="form-label mt-4" for="readOnlyInput">First
                                                             Name</label>
                                                         <input class="form-control" id="readOnlyInput" type="text"
@@ -307,7 +292,7 @@
                                                 </div>
                                                 <div class="form-group">
 
-                                                    <fieldset>
+                                                    <fieldset class="text-left">
                                                         <label class="form-label mt-4" for="readOnlyInput">Last
                                                             Name</label>
                                                         <input class="form-control" id="readOnlyInput" type="text"
@@ -315,7 +300,7 @@
                                                     </fieldset>
                                                 </div>
                                                 <div class="form-group">
-                                                    <fieldset>
+                                                    <fieldset class="text-left">
                                                         <label class="form-label mt-4"
                                                             for="readOnlyInput">Address</label>
                                                         <input class="form-control" id="readOnlyInput" type="text"
@@ -323,7 +308,7 @@
                                                     </fieldset>
                                                 </div>
                                                 <div class="form-group">
-                                                    <fieldset>
+                                                    <fieldset class="text-left">
                                                         <label class="form-label mt-4"
                                                             for="readOnlyInput">Number</label>
                                                         <input class="form-control" id="readOnlyInput" type="text"
@@ -331,7 +316,7 @@
                                                     </fieldset>
                                                 </div>
                                                 <div class="form-group">
-                                                    <fieldset>
+                                                    <fieldset class="text-left">
                                                         <label class="form-label mt-4" for="readOnlyInput">Chức
                                                             vụ</label>
                                                         <input class="form-control" id="readOnlyInput" type="text"
@@ -339,14 +324,14 @@
                                                     </fieldset>
                                                 </div>
                                                 <div class="form-group">
-                                                    <fieldset>
+                                                    <fieldset class="text-left">
                                                         <label class="form-label mt-4" for="readOnlyInput">Email
                                                         </label>
                                                         <input class="form-control" id="readOnlyInput" type="text"
                                                             value="{{customer.employee.email}}" name='email'>
                                                     </fieldset>
                                                 </div>
-                                                <button class="btn btn-info">Info</button>
+                                                <button class="btn btn-info btn-ok">OK</button>
 
                                             </div>
                                         </form>
@@ -371,7 +356,12 @@
                 </div>
             </div>
             <!-- Team End -->
-
+            
+            <div style="text-align: center;">
+                <button class="btn-sc">
+                    <a href="#" class="edit-link" onclick="openModal()">Insert</a>
+                </button>
+            </div>
 
             <!-- Footer Start -->
             <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
