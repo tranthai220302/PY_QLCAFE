@@ -144,18 +144,6 @@
             <div class="container-xxl py-5">
                 <div class="container">
                     <div class="row" style="display: flex; margin: auto; justify-content: center;">
-                        {% comment %} <a href="{% url 'manage_Customer' id_page=1 %}" class="col-lg-3 col-sm-6 wow fadeInUp"
-                            data-wow-delay="0.1s">
-                            <div class="service-item rounded pt-3">
-                                <div class="p-4">
-                                    <i class="fa fa-3x fa-user-tie text-primary mb-4"></i>
-                                    <h5>Khách hàng</h5>
-                                    <p>Quản lý khách hàng là phương pháp giúp các chủ doanh nghiệp, cửa hàng hoặc cơ sở
-                                        kinh doanh tiếp cận và giao tiếp và tương tác với khách hàng một cách hiệu ...
-                                    </p>
-                                </div>
-                            </div>
-                        </a> {% endcomment %}
                         {% for menu in list_menu %}
                         <a href="{% url 'manage_menu' id=menu.id id_page=1 %}" class="col-lg-3 col-sm-6 wow fadeInUp"
                             data-wow-delay="0.1s">

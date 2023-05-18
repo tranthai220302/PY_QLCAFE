@@ -38,19 +38,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <style>
-    .edit-btn {
-        background-color: #28a745;
-        color: white;
-        border-radius: 5px;
-        padding: 10px 20px;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-    .edit-btn:hover {
-        background-color: #218838;
-    }
 
     .pagination {
         display: flex;
@@ -248,7 +235,7 @@
 
                                 </div>
                                 <div class="dropdown mt-3">
-                                    <button id='add' type="button" class="btn btn-sc">Success</button>
+                                    <button id='add' type="button" class="btn btn-sc">OK</button>
                                 </div>
                             </div>
                         </div>
@@ -324,6 +311,7 @@
                                                         success: function (data) {
                                                             if (data.deleted) {
                                                                 $('#post-' + post_id).remove();
+                                                                alert('Xóa món khỏi menu thành công!')
                                                             } else {
                                                                 alert('Failed to delete post.');
                                                             }
@@ -342,7 +330,7 @@
                                         <div class="offcanvas offcanvas-start" tabindex="-1"
                                             id="offcanvasExample{{dish.id}}" aria-labelledby="offcanvasExampleLabel">
                                             <div class="offcanvas-header">
-                                                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Edit
+                                                <h5 class="offcanvas-title form-title" id="offcanvasExampleLabel">Edit
                                                     {{menu.type}}</h5>
                                                 <button type="button" class="btn-close text-reset"
                                                     data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -365,7 +353,7 @@
                                                     </div>
                                                     <div class="form" style="margin-top: 40px;">
                                                         <label for="formFile" class="label">Image {{menu.type}}</label>
-                                                        <input type="file" name="image" id="" class="image{{dish.id}}">
+                                                        <input type="file" name="image" id="" class="image{{dish.id}}" placeholder="{{dish.image}}" value="{{dish.image}}">
                                                     </div>
                                                     <input type="hidden" class="menu{{dish.id}}"
                                                         placeholder="{{menu.id}}" id="inputDefault3-{{dish.id}}"
@@ -376,7 +364,7 @@
                                                 </div>
                                                 <div class="dropdown mt-3">
                                                     <button type="submit" class="edit-btn btn-sc"
-                                                        data-dish-id="{{dish.id}}">Success</button>
+                                                        data-dish-id="{{dish.id}}">OK</button>
                                                 </div>
                                             </div>
                                         </div>

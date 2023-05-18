@@ -104,10 +104,9 @@
                         <div style="display: flex;">
                             <div class="d-flex flex-row align-items-center">
                                 <div style="padding: 15px 0px;">
-                                    <img src="{% static request.user.customer_set.first.image %}"
+                                    <img src="{% static request.user.employee_set.first.image %}"
                                         class="img-fluid rounded-3" alt="Shopping item"
                                         style="height: 65px;width: 65px;border-radius: 50%!important;border: 0.2px solid black;">
-
                                 </div>
                                 <div class="ms-3">
                                     <h5>{{request.user.username}}</h5>
