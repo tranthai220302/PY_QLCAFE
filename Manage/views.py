@@ -70,24 +70,22 @@ def my_login(request):
             login(request, my_user)
             print(my_user.is_staff)
             if my_user.is_staff == True:
-                return render(request, 'Customer/index.html', {'Dish': queryset, 'nhanvien': nhanvien})
+                return HttpResponseRedirect('/', {'Dish': queryset, 'nhanvien': nhanvien})
             else:
                 if my_user.is_admin == True:
                     listCustomer = Customer.objects.filter()
-                    return render(request, 'Admin/manageEmployee.html', {'Dish': queryset, 'nhanvien': nhanvien, 'list_Customer': listCustomer})
+                    return HttpResponseRedirect('manage_Employee', {'Dish': queryset, 'nhanvien': nhanvien, 'list_Customer': listCustomer})
                 else:
-                    return render(request, 'Manage/home.html', {'list_menu': list_menu, 'my_user': user, 'nhanvien': nhanvien})
+                    return HttpResponseRedirect('home', {'list_menu': list_menu, 'my_user': user, 'nhanvien': nhanvien})
         else:
-            if user.is_staff == True:
-                return render(request, 'Customer/index.html', {'Dish': queryset, 'nhanvien': nhanvien})
+            if my_user.is_staff == True:
+                return HttpResponseRedirect('/', {'Dish': queryset, 'nhanvien': nhanvien})
             else:
-                if user.is_admin == True:
+                if my_user.is_admin == True:
                     listCustomer = Customer.objects.filter()
-                    return render(request, 'Admin/manageEmployee.html', {'Dish': queryset, 'nhanvien': nhanvien, 'list_Customer': listCustomer})
+                    return HttpResponseRedirect('manage_Employee', {'Dish': queryset, 'nhanvien': nhanvien, 'list_Customer': listCustomer})
                 else:
-                    list_menu = Menu.objects.filter()
-                    nhanvien = Employee.objects.filter(employee_id=user.id)
-                    return render(request, 'Manage/home.html', {'list_menu': list_menu, 'my_user': user, 'nhanvien': nhanvien})
+                    return HttpResponseRedirect('home', {'list_menu': list_menu, 'my_user': user, 'nhanvien': nhanvien})
     else:
         user = request.user
         list_menu = Menu.objects.filter()
@@ -95,14 +93,14 @@ def my_login(request):
         if not user.is_authenticated:
             return render(request, 'Customer/formLogin.html')
         else:
-            if user.is_staff == True:
-                return render(request, 'Customer/index.html', {'Dish': queryset})
+            if my_user.is_staff == True:
+                return HttpResponseRedirect('/', {'Dish': queryset, 'nhanvien': nhanvien})
             else:
-                if user.is_admin == True:
+                if my_user.is_admin == True:
                     listCustomer = Customer.objects.filter()
-                    return render(request, 'Admin/manageEmployee.html', {'Dish': queryset, 'nhanvien': nhanvien, 'list_Customer': listCustomer})
+                    return HttpResponseRedirect('manage_Employee', {'Dish': queryset, 'nhanvien': nhanvien, 'list_Customer': listCustomer})
                 else:
-                    return render(request, 'Manage/home.html', {'list_menu': list_menu, 'my_user': user, 'nhanvien': nhanvien})
+                    return HttpResponseRedirect('home', {'list_menu': list_menu, 'my_user': user, 'nhanvien': nhanvien})
 
 
 @decorators.login_required(login_url='/formlogin')
@@ -110,7 +108,7 @@ def my_logout(request):
     logout(request)
     queryset = Dish.objects.filter()
     nhanvien = Employee.objects.filter()
-    return render(request, 'Customer/index.html', {'Dish': queryset, 'nhanvien': nhanvien})
+    return HttpResponseRedirect('/')
 
 
 @ decorators.login_required(login_url='/formlogin')
@@ -141,9 +139,9 @@ def signup(request):
         Customer.objects.create(
             customer=user, address=_address, number_phone=phone)
         queryset = Dish.objects.filter()
-        return render(request, 'Customer/index.html', {"Dish": queryset})
+        return HttpResponseRedirect('/', {'Dish': queryset})
     else:
-        return render(request, 'Customer/menu.html')
+        return HttpResponseRedirect('/')
 
 
 def signupemployee(request, id=0):
@@ -162,7 +160,7 @@ def signupemployee(request, id=0):
             print('You already have')
             nhanvien = Employee.objects.filter()
             listCustomer = Customer.objects.filter()
-            return render(request, 'Admin/manageEmployee.html', {'nhanvien': nhanvien, 'list_Customer': listCustomer})
+            return HttpResponseRedirect('manage_Employee')
         if id == 0:
             User.objects.create_user(
                 username=_username, email=email, password=password, first_name=firstname, last_name=lastname, is_staff=False)
@@ -172,9 +170,8 @@ def signupemployee(request, id=0):
                 employee=user, address=_address, number_phone=phone, position=posi, image="img/"+image)
 
             nhanvien = Employee.objects.filter()
-            return render(request, 'Admin/manageEmployee.html', {'nhanvien': nhanvien})
+            return HttpResponseRedirect('manage_Employee', {'nhanvien': nhanvien})
         else:
-            print("FDFD")
             employee = Employee.objects.get(id=id)
             employee.address = _address
             employee.number_phone = phone
@@ -185,7 +182,7 @@ def signupemployee(request, id=0):
             employee.employee.save()
             employee.save()
             nhanvien = Employee.objects.filter()
-            return render(request, 'Admin/manageEmployee.html', {'nhanvien': nhanvien})
+            return HttpResponseRedirect('manage_Employee', {'nhanvien': nhanvien})
 
     else:
         print('You already have123')
