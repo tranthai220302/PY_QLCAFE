@@ -16,7 +16,7 @@ urlpatterns = [
     path('my_login', views.my_login, name="my_login"),
     path('formlogin', views.formlogin, name="formlogin"),
     path('my_logout', views.my_logout, name="my_logout"),
-    path('signup', views.signup, name="signup"),
+    path('signup<int:id><int:id_page>', views.signup, name="signup"),
     path('pay', views.pay, name="pay"),
     path('purchaseorder', views.purchaseorder, name="purchaseorder"),
     path('myaccount', views.myaccount, name="myaccount"),
@@ -42,4 +42,6 @@ urlpatterns = [
     path('delete_customer<int:id>/<int:id_page>',
          views.delete_customer, name='delete_customer'),
     path('manage_Employee', views.manage_Employee, name='manage_Employee'),
+    path('signupcustomer<int:id_page>',
+         views.signupcustomer, name='signupcustomer'),
 ]

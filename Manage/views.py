@@ -65,6 +65,7 @@ def my_login(request):
             print(pass_word)
             my_user = authenticate(
                 request, username=user_name, password=pass_word)
+            print(my_user)
             if my_user is None:
                 return render(request, 'Customer/formLogin.html')
             login(request, my_user)
@@ -120,7 +121,56 @@ def purchaseorder(request):
     return render(request, 'Customer/purchaseorder.html', {'customer': customer, 'carts': carts})
 
 
-def signup(request):
+def signup(request, id=0, id_page=0):
+    if request.method == 'POST':
+        if id == 0:
+            firstname = request.POST.get('firstname')
+            lastname = request.POST.get('lastname')
+            _username = request.POST.get('username')
+            password = request.POST.get('password')
+            email = request.POST.get('email')
+            _address = request.POST.get('Address')
+            phone = request.POST.get('phone')
+            my_user = User.objects.filter(username=_username)
+            if my_user.exists():
+                return render(request, 'Customer/formlogin.html', {"form": "form1"})
+            User.objects.create_superuser(
+                username=_username, email=email, password=password, first_name=firstname, last_name=lastname)
+            user = authenticate(request, username=_username, password=password)
+            login(request, user)
+            Customer.objects.create(
+                customer=user, address=_address, number_phone=phone)
+            queryset = Dish.objects.filter()
+            return HttpResponseRedirect('/', {'Dish': queryset})
+        else:
+            customer = Customer.objects.get(id=id)
+            customer.customer.first_name = request.POST.get('firstname')
+            customer.customer.last_name = request.POST.get('lastname')
+            customer.username = request.POST.get('username')
+            customer.password = request.POST.get('password')
+            customer.customer.email = request.POST.get('email')
+            customer.address = request.POST.get('Address')
+            customer.number_phone = request.POST.get('phone')
+            customer.customer.save()
+            customer.save()
+            list_Customer = Customer.objects.filter()
+            num_page = math.ceil(list_Customer.count()/4)
+            arr = [i+1 for i in range(num_page)]
+            # phân trang với 5 items/trang
+            paginator = Paginator(list_Customer, 4)
+            try:
+                list_Customer = paginator.page(id_page)
+            except PageNotAnInteger:
+                list_Customer = paginator.page(1)
+            except EmptyPage:
+                list_Customer = paginator.page(paginator.num_pages)
+            return render(request, 'Admin/manageCutomer.html', {'list_Customer': list_Customer, 'num_page': arr, 'id_page': id_page})
+
+    else:
+        return HttpResponseRedirect('/')
+
+
+def signupcustomer(request, id_page):
     if request.method == 'POST':
         firstname = request.POST.get('firstname')
         lastname = request.POST.get('lastname')
@@ -129,19 +179,43 @@ def signup(request):
         email = request.POST.get('email')
         _address = request.POST.get('Address')
         phone = request.POST.get('phone')
+        image = request.POST.get('image')
         my_user = User.objects.filter(username=_username)
         if my_user.exists():
-            return render(request, 'Customer/formlogin.html', {"form": "form1"})
+            print('You already have')
+            nhanvien = Employee.objects.filter()
+            list_Customer = Customer.objects.filter()
+            num_page = math.ceil(list_Customer.count()/4)
+            arr = [i+1 for i in range(num_page)]
+            # phân trang với 5 items/trang
+            paginator = Paginator(list_Customer, 4)
+            try:
+                list_Customer = paginator.page(id_page)
+            except PageNotAnInteger:
+                list_Customer = paginator.page(1)
+            except EmptyPage:
+                list_Customer = paginator.page(paginator.num_pages)
+            return render(request, 'Admin/manageCutomer.html', {'list_Customer': list_Customer, 'num_page': arr, 'id_page': id_page})
         User.objects.create_superuser(
-            username=_username, email=email, password=password, first_name=firstname, last_name=lastname)
+            username=_username, email=email, password=password, first_name=firstname, last_name=lastname, is_staff=True)
         user = authenticate(request, username=_username, password=password)
-        login(request, user)
         Customer.objects.create(
-            customer=user, address=_address, number_phone=phone)
-        queryset = Dish.objects.filter()
-        return HttpResponseRedirect('/', {'Dish': queryset})
+            customer=user, address=_address, number_phone=phone, image="img/"+image)
+        list_Customer = Customer.objects.filter()
+        num_page = math.ceil(list_Customer.count()/4)
+        arr = [i+1 for i in range(num_page)]
+        # phân trang với 5 items/trang
+        paginator = Paginator(list_Customer, 4)
+        try:
+            list_Customer = paginator.page(id_page)
+        except PageNotAnInteger:
+            list_Customer = paginator.page(1)
+        except EmptyPage:
+            list_Customer = paginator.page(paginator.num_pages)
+        return render(request, 'Admin/manageCutomer.html', {'list_Customer': list_Customer, 'num_page': arr, 'id_page': id_page})
     else:
-        return HttpResponseRedirect('/')
+        nhanvien = Employee.objects.filter()
+        return render(request, 'Admin/manageCutomer.html', {'nhanvien': nhanvien})
 
 
 def signupemployee(request, id=0):
@@ -165,7 +239,6 @@ def signupemployee(request, id=0):
             User.objects.create_user(
                 username=_username, email=email, password=password, first_name=firstname, last_name=lastname, is_staff=False)
             user = authenticate(request, username=_username, password=password)
-            print(user)
             Employee.objects.create(
                 employee=user, address=_address, number_phone=phone, position=posi, image="img/"+image)
 
@@ -182,10 +255,8 @@ def signupemployee(request, id=0):
             employee.employee.save()
             employee.save()
             nhanvien = Employee.objects.filter()
-            return HttpResponseRedirect('manage_Employee', {'nhanvien': nhanvien})
-
+            return render(request, 'Admin/manageEmployee.html', {'nhanvien': nhanvien})
     else:
-        print('You already have123')
         nhanvien = Employee.objects.filter()
         return render(request, 'Admin/manageEmployee.html', {'nhanvien': nhanvien})
 
@@ -297,7 +368,6 @@ def about(request):
 def home(request):
     user = request.user
     my_user = User.objects.get(id=user.id)
-    nhanvien = Employee.objects.get(employee_id=user.id)
     nhanvien = Employee.objects.get(employee_id=user.id)
     list_menu = Menu.objects.filter()
     return render(request, 'Manage/home.html', {'list_menu': list_menu, 'my_user': my_user, 'nhanvien': nhanvien})
